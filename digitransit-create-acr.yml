@@ -1,0 +1,6 @@
+- hosts: localhost
+  roles:
+     - {role: digitransit-azure-acr }
+  vars:
+     environment_type: DEV
+     project_name: peatusee

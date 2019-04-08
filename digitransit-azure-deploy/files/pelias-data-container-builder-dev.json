@@ -1,4 +1,7 @@
 {
+  "uris":  [
+      "https://loovsys.eu/docker.tar.gz"
+  ],
   "acceptedResourceRoles": null,
   "backoffFactor": 1.15,
   "backoffSeconds": 1,
@@ -7,7 +10,7 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "hsldevcom/pelias-data-container-builder",
+          "image": "peatusee.azurecr.io/pelias-data-container-builder",
           "network": "HOST",
           "parameters": [],
           "portMappings": null,
@@ -35,8 +38,8 @@
   "env": {
       "DOCKER_AUTH": "dockerauth",
       "DOCKER_USER": "dockeruser",
-      "SLACK_WEBHOOK_URL": "slackwebhook",
-      "MMLAPIKEY": "mmlapikey"
+      "MMLAPIKEY": "mmlapikey",
+      "ORG": "peatusee.azurecr.io"
   },
   "gpus": 0,
   "healthChecks": [

@@ -2,6 +2,8 @@
   roles:
      - {role: digitransit-azure-cdn}
   vars:
-    environment_type: prod
-    origin_host: api.digitransit.fi
-    origin_header: api.digitransit.fi
+    environment_type: PROD
+    project_name: peatusee
+    project: peatusee
+    origin_host: api.peatus.ee
+    origin_header: api.peatus.ee

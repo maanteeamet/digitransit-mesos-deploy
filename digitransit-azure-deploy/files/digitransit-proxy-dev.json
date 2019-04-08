@@ -1,4 +1,7 @@
 {
+  "uris":  [
+      "https://loovsys.eu/docker.tar.gz"
+  ],
   "acceptedResourceRoles": [
       "slave_public"
   ],
@@ -9,7 +12,7 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "hsldevcom/digitransit-proxy",
+          "image": "peatusee.azurecr.io/digitransit-proxy",
           "network": "BRIDGE",
           "parameters": [],
           "portMappings": [
@@ -31,7 +34,7 @@
   "cpus": 2,
   "dependencies": [],
   "disk": 0,
-  "env": {"OLD_LISSU_BASIC_AUTH":"\"Basic oldlissubasickey\"","JOJO_BASIC_AUTH":"\"Basic jojobasickey\"","LINKKI_BASIC_AUTH":"\"Basic linkkibasickey\"","VILKKU_BASIC_AUTH":"\"Basic vilkkubasickey\"","NEW_LISSU_BASIC_AUTH":"\"Basic newlissubasickey\"","LAPPEENRANTA_BASIC_AUTH":"\"Basic lappeenrantabasickey\""},
+  "env": {"OLD_LISSU_BASIC_AUTH":"\"Basic oldlissubasickey\"","JOJO_BASIC_AUTH":"\"Basic oldlissubasickey\"","LINKKI_BASIC_AUTH":"\"Basic oldlissubasickey\"","VILKKU_BASIC_AUTH":"\"Basic oldlissubasickey\"","NEW_LISSU_BASIC_AUTH":"\"Basic oldlissubasickey\"","LAPPEENRANTA_BASIC_AUTH":"\"Basic oldlissubasickey\""},
   "gpus": 0,
   "healthChecks": [
       {
@@ -46,7 +49,7 @@
       }
   ],
   "id": "/digitransit-proxy",
-  "instances": 2,
+  "instances": 1,
   "labels": {
       "update": "auto"
   },

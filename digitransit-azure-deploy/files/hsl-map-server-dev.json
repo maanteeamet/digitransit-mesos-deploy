@@ -1,4 +1,7 @@
 {
+  "uris":  [
+      "https://loovsys.eu/docker.tar.gz"
+  ],
   "acceptedResourceRoles": null,
   "backoffFactor": 1.15,
   "backoffSeconds": 1,
@@ -12,7 +15,7 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "hsldevcom/hsl-map-server",
+          "image": "peatusee.azurecr.io/hsl-map-server:latest",
           "network": "BRIDGE",
           "parameters": [
               {
@@ -41,10 +44,8 @@
   "dependencies": [],
   "disk": 0,
   "env": {
-      "FONTSTACK_PASSWORD": "fontstacksecret",
-      "HSL_OTP_URL": "opentripplanner-hsl:8080/otp/routers/hsl/index/graphql",
-      "FINLAND_OTP_URL": "opentripplanner-finland:8080/otp/routers/finland/index/graphql",
-      "WALTTI_OTP_URL": "opentripplanner-waltti:8080/otp/routers/waltti/index/graphql",
+      "FONTSTACK_PASSWORD": "",
+      "ESTONIA_OTP_URL": "opentripplanner-estonia:8080/otp/routers/estonia/index/graphql",
       "NODE_OPTS": "--max_old_space_size=2048 --optimize_for_size --max_executable_size=2048 --stack_size=2048 --harmony"
   },
   "gpus": 0,
@@ -61,9 +62,9 @@
       }
   ],
   "id": "/hsl-map-server",
-  "instances": 2,
+  "instances": 1,
   "labels": {
-      "restart-after-services": "/opentripplanner-finland,/opentripplanner-hsl,/opentripplanner-waltti",
+      "restart-after-services": "/opentripplanner-estonia",
       "restart-delay": "5",
       "update": "auto"
   },

@@ -1,4 +1,7 @@
 {
+  "uris":  [
+      "https://loovsys.eu/docker.tar.gz"
+  ],
     "acceptedResourceRoles": null,
     "backoffFactor": 1.15,
     "backoffSeconds": 1,
@@ -46,9 +49,8 @@
         "DOCKER_USER": "dockeruser",
         "HOST_DATA": "/var/lib/docker/otp/data",
         "OTP_TAG": "prod",
-        "ROUTERS": "finland, waltti, hsl",
+        "ROUTERS": "estonia",
         "SEED_TAG": "prod",
-        "SLACK_WEBHOOK_URL": "slackwebhook",
         "TOOLS_TAG": "prod"
     },
     "gpus": 0,

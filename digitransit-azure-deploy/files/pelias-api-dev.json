@@ -1,4 +1,7 @@
 {
+  "uris":  [
+      "https://loovsys.eu/docker.tar.gz"
+  ],
   "acceptedResourceRoles": null,
   "backoffFactor": 1.15,
   "backoffSeconds": 1,
@@ -12,7 +15,7 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "hsldevcom/pelias-api",
+          "image": "peatusee.azurecr.io/pelias-api",
           "network": "BRIDGE",
           "parameters": [
               {
@@ -51,7 +54,7 @@
           "ignoreHttp1xx": false,
           "intervalSeconds": 10,
           "maxConsecutiveFailures": 5,
-          "path": "/v1/search?text=helsinki",
+          "path": "/v1/search?text=tallinn",
           "portIndex": 0,
           "protocol": "HTTP",
           "timeoutSeconds": 10

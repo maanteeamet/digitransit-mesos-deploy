@@ -1,4 +1,7 @@
 {
+  "uris":  [
+      "https://loovsys.eu/docker.tar.gz"
+  ],
     "acceptedResourceRoles": null,
     "backoffFactor": 1.15,
     "backoffSeconds": 1,
@@ -12,7 +15,7 @@
     "container": {
         "docker": {
             "forcePullImage": true,
-            "image": "hsldevcom/digitransit-ui",
+            "image": "peatusee.azurecr.io/digitransit-ui",
             "network": "BRIDGE",
             "parameters": [
                 {
@@ -40,13 +43,15 @@
     "dependencies": [],
     "disk": 0,
     "env": {
-        "API_URL": "https://dev-api.digitransit.fi",
-        "ASSET_URL": "https://digitransit-dev-cdn-origin.azureedge.net/ui/v1/finland",
-        "CONFIG": "matka",
-        "MAP_URL": "https://digitransit-dev-cdn-origin.azureedge.net",
+        "API_URL": "https://api.dev.peatus.ee",
+        "ASSET_URL": "https://api.dev.peatus.ee/ui/v1/estonia",
+        "CONFIG": "estonia",
+        "MAP_URL": "https://api.dev.peatus.ee",
+        "OTP_URL": "https://api.dev.peatus.ee/routing/v1/routers/estonia/",
+        "GEOCODING_BASE_URL": "http://api.dev.peatus.ee/geocoding/v1",
         "NODE_OPTS": "--max_old_space_size=600",
-        "PIWIK_ADDRESS": "//piwik.digitransit.fi/piwik.php",
-        "PIWIK_ID": "7",
+        "PIWIK_ADDRESS": "",
+        "PIWIK_ID": "",
         "RELAY_FETCH_TIMEOUT": "3000",
         "SENTRY_DSN": "sentrydsnenvsecret",
         "SENTRY_SECRET_DSN": "sentrydsnsecret"

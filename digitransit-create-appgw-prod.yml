@@ -3,6 +3,8 @@
      - {role: digitransit-azure-appgw}
   vars:
      environment_type: PROD
-     certfile: /location/of/digitransit.pfx
-     certpass: yourpasswordhere
-
+     project_name: peatusee
+     project: peatusee
+     certfile: /home/martivo/peatus/digitransit-mesos-deploy/self_signed_ssl/test.pfx
+     certpass: fM2hkebDfcPq
+     backend_servers: "peatusee-prod-acsagents.westeurope.cloudapp.azure.com"

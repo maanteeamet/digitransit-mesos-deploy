@@ -1,4 +1,7 @@
 {
+  "uris":  [
+      "https://loovsys.eu/docker.tar.gz"
+  ],
     "acceptedResourceRoles": null,
     "backoffFactor": 1.15,
     "backoffSeconds": 1,
@@ -33,7 +36,6 @@
     "env": {
         "CONCURRENT_USERS": "75",
         "FILES_AND_HEADERS": "test_data_otp_external.txt --content-type 'application/graphql',test2.txt,test_data_pelias_external.txt",
-        "SLACK_WEBHOOK_URL": "slackwebhook",
         "TEST_TIME": "07:25:00"
     },
     "gpus": 0,

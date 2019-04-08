@@ -1,0 +1,14 @@
+---
+# defaults file for digitransit-azure-acs
+project_name: peatusee
+#What type of environment
+
+acr_name: "{{project_name}}"
+#the username defaults to admin recommend to change 
+#Azure resource group name
+resource_group_name: "{{project_name}}-ACR-RG"
+#DNS prefix this has to be unique on azure or cluster creation will fail
+#which azure region
+azure_region: westeurope
+
+

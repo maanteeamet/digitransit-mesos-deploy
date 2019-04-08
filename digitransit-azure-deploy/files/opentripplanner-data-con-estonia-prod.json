@@ -1,4 +1,7 @@
 {
+    "uris":  [
+        "https://loovsys.eu/docker.tar.gz"
+    ],
   "acceptedResourceRoles": null,
   "backoffFactor": 1.15,
   "backoffSeconds": 1,
@@ -12,7 +15,7 @@
   "container": {
     "docker": {
       "forcePullImage": true,
-      "image": "hsldevcom/minimal-image:latest",
+      "image": "peatusee.azurecr.io/opentripplanner-data-container-estonia:prod",
       "network": "BRIDGE",
       "parameters": [
         {
@@ -21,7 +24,7 @@
         },
         {
           "key": "name",
-          "value": "opentripplanner-data-con-next-waltti"
+          "value": "opentripplanner-data-con-finland"
         }
       ],
       "portMappings": [
@@ -29,10 +32,10 @@
           "containerPort": 8080,
           "hostPort": 0,
           "labels": {
-            "VIP_0": "/opentripplanner-data-con-next-waltti:8080"
+            "VIP_0": "/opentripplanner-data-con-finland:8080"
           },
           "protocol": "tcp",
-          "servicePort": 10090
+          "servicePort": 10020
         }
       ],
       "privileged": false
@@ -47,33 +50,32 @@
   "gpus": 0,
   "healthChecks": [
     {
-      "command": {
-        "value": "true"
-      },
-      "gracePeriodSeconds": 30,
+      "gracePeriodSeconds": 300,
       "ignoreHttp1xx": false,
-      "intervalSeconds": 60,
+      "intervalSeconds": 10,
       "maxConsecutiveFailures": 5,
-      "protocol": "COMMAND",
+      "path": "/version.txt",
+      "portIndex": 0,
+      "protocol": "HTTP",
       "timeoutSeconds": 10
     }
   ],
-  "id": "/opentripplanner-data-con-next-waltti",
-  "instances": 1,
+  "id": "/opentripplanner-data-con-finland",
+  "instances": 2,
   "labels": {
     "update": "auto"
   },
-  "maxLaunchDelaySeconds": 180,
-  "mem": 16,
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 150,
   "portDefinitions": [
     {
       "labels": {},
-      "port": 10090,
+      "port": 10020,
       "protocol": "tcp"
     }
   ],
   "ports": [
-    10090
+    10020
   ],
   "readinessChecks": [],
   "taskKillGracePeriodSeconds": null,

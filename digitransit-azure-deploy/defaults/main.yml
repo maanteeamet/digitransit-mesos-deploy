@@ -4,17 +4,11 @@
 #remove default environment to prevent accidents needs be set a runtime
 #environment_type: ""
 container:
-- name: "digitransit-deployer"
-  config: "digitransit-deployer-{{ environment_type | lower }}"
-
 - name: "digitransit-docker-gc"
   config: "digitransit-docker-gc-{{ environment_type | lower }}"
 
 - name: "pelias-api"
   config: "pelias-api-{{ environment_type | lower }}"
-
-- name: "siri2gtfsrt"
-  config: "siri2gtfsrt-{{ environment_type | lower }}"
 
 - name: "raildigitraffic2gtfsrt"
   config: "raildigitraffic2gtfsrt-{{ environment_type | lower }}"
@@ -28,47 +22,17 @@ container:
 - name: "hslalert"
   config: "hslalert-{{ environment_type | lower }}"
 
-- name: "digitransit-ui-waltti"
-  config: "digitransit-ui-waltti-{{ environment_type | lower }}"
-
 - name: "digitransit-ui-default"
   config: "digitransit-ui-matka-{{ environment_type | lower }}"
 
-- name: "digitransit-ui-hsl"
-  config: "digitransit-ui-hsl-{{ environment_type | lower }}"
-
-- name: "opentripplanner-hsl"
-  config: "opentripplanner-hsl-{{ environment_type | lower }}"
-
-- name: "opentripplanner-waltti"
-  config: "opentripplanner-waltti-{{ environment_type | lower }}"
-
-- name: "opentripplanner-finland"
-  config: "opentripplanner-finland-{{ environment_type | lower }}"
-
-- name: "opentripplanner-next"
-  config: "opentripplanner-next-{{ environment_type | lower }}"
+- name: "opentripplanner-estonia"
+  config: "opentripplanner-estonia-{{ environment_type | lower }}"
 
 - name: "digitransit-proxy"
   config: "digitransit-proxy-{{ environment_type | lower }}"
 
-- name: "opentripplanner-data-con-hsl"
-  config: "opentripplanner-data-con-hsl-{{ environment_type | lower }}"
-
-- name: "opentripplanner-data-con-waltti"
-  config: "opentripplanner-data-con-waltti-{{ environment_type | lower }}"
-
-- name: "opentripplanner-data-con-finland"
-  config: "opentripplanner-data-con-finland-{{ environment_type | lower }}"
-
-- name: "opentripplanner-data-con-next-hsl"
-  config: "opentripplanner-data-con-next-hsl-{{ environment_type | lower }}"
-
-- name: "opentripplanner-data-con-next-waltti"
-  config: "opentripplanner-data-con-next-waltti-{{ environment_type | lower }}"
-
-- name: "opentripplanner-data-con-next-finland"
-  config: "opentripplanner-data-con-next-finland-{{ environment_type | lower }}"
+- name: "opentripplanner-data-con-estonia"
+  config: "opentripplanner-data-con-estonia-{{ environment_type | lower }}"
 
 - name: "navigator-server"
   config: "navigator-server-{{ environment_type | lower }}"
@@ -82,8 +46,6 @@ container:
 - name: "hsl-timetable-container"
   config: "hsl-timetable-container-{{ environment_type | lower }}"
 
-- name: "digitransit-sentry-analytics"
-  config: "digitransit-sentry-analytics-{{ environment_type | lower }}"
 
 dev_container:
 
@@ -109,13 +71,8 @@ dev_container:
   config: "hsl-timetable-builder-dev"
 
 filesecrets:
-- "digitransit-ui-hsl-{{environment_type | lower}}.json"
-- "digitransit-ui-waltti-{{environment_type | lower}}.json"
 - "digitransit-ui-matka-{{environment_type | lower}}.json"
-- "opentripplanner-hsl-{{environment_type | lower}}.json"
-- "opentripplanner-waltti-{{environment_type | lower}}.json"
-- "opentripplanner-finland-{{environment_type | lower}}.json"
-- "opentripplanner-next-{{environment_type | lower}}.json"
+- "opentripplanner-estonia-{{environment_type | lower}}.json"
 
 dockersecrets:
 - "pelias-data-container-builder-dev.json"

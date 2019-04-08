@@ -1,0 +1,11 @@
+---
+# tasks file for digitransit-azure-acs
+
+- name: create AZURE resource group
+  shell: "az group create 
+         --name {{resource_group_name}} 
+         --location {{azure_region}}"
+
+- name: create AZURE container registry
+  shell: "az acr create --name {{acr_name}} \
+          --resource-group {{resource_group_name}} --sku Standard"

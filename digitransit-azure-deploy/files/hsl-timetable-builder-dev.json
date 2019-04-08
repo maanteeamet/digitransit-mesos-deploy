@@ -1,4 +1,7 @@
 {
+  "uris":  [
+      "https://loovsys.eu/docker.tar.gz"
+  ],
     "acceptedResourceRoles": null,
     "backoffFactor": 1.15,
     "backoffSeconds": 1,
@@ -30,7 +33,6 @@
         "DOCKER_TAG": "latest",
         "DOCKER_USER": "dockeruser",
         "FONTSTACK_PASSWORD": "fontstacksecret",
-        "SLACK_WEBHOOK_URL": "slackwebhook",
         "TAKU_API_URL": "takuapi",
         "TAKU_KEY": "takukey",
         "TIMETABLE_DAYS_ADVANCE": "2"

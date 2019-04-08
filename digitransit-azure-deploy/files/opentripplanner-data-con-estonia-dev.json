@@ -1,13 +1,21 @@
 {
+    "uris":  [
+        "https://loovsys.eu/docker.tar.gz"
+    ],
   "acceptedResourceRoles": null,
   "backoffFactor": 1.15,
   "backoffSeconds": 1,
   "cmd": null,
-  "constraints": [],
+  "constraints": [
+        [
+            "hostname",
+            "UNIQUE"
+        ]
+    ],
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "hsldevcom/opentripplanner",
+          "image": "peatusee.azurecr.io/opentripplanner-data-container-estonia",
           "network": "BRIDGE",
           "parameters": [
               {
@@ -16,7 +24,7 @@
               },
               {
                   "key": "name",
-                  "value": "opentripplanner-finland"
+                  "value": "opentripplanner-data-con-estonia"
               }
           ],
           "portMappings": [
@@ -24,11 +32,10 @@
                   "containerPort": 8080,
                   "hostPort": 0,
                   "labels": {
-                      "VIP_0": "/opentripplanner-finland:8080"
+                      "VIP_0": "/opentripplanner-data-con-estonia:8080"
                   },
-                  "name": "otpfinland",
                   "protocol": "tcp",
-                  "servicePort": 10007
+                  "servicePort": 10020
               }
           ],
           "privileged": false
@@ -36,46 +43,39 @@
       "type": "DOCKER",
       "volumes": []
   },
-  "cpus": 1,
+  "cpus": 0.1,
   "dependencies": [],
   "disk": 0,
-  "env": {
-      "ROUTER_DATA_CONTAINER_URL": "https://dev-api.digitransit.fi/routing-data/v2/finland",
-      "ROUTER_NAME": "finland",
-      "JAVA_OPTS": "-Dsentry.dsn=sentry_routing_secret_dsn -Xmx7G -Xms7G -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:G1ReservePercent=10"
-  },
+  "env": {},
   "gpus": 0,
   "healthChecks": [
       {
-          "command": {
-              "value": "test $(curl -4 -s -o /dev/null -w \"%{http_code}\" http://localhost:$PORT0/otp/routers/finland/) = 200"
-          },
-          "gracePeriodSeconds": 2400,
+          "gracePeriodSeconds": 300,
           "ignoreHttp1xx": false,
-          "intervalSeconds": 30,
-          "maxConsecutiveFailures": 6,
-          "protocol": "COMMAND",
-          "timeoutSeconds": 20
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 5,
+          "path": "/version.txt",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
       }
   ],
-  "id": "/opentripplanner-finland",
-  "instances": 2,
+  "id": "/opentripplanner-data-con-estonia",
+  "instances": 1,
   "labels": {
-      "restart-after-services": "/opentripplanner-data-con-finland",
-      "restart-delay": "25",
       "update": "auto"
   },
   "maxLaunchDelaySeconds": 3600,
-  "mem": 10240,
+  "mem": 150,
   "portDefinitions": [
       {
           "labels": {},
-          "port": 10007,
+          "port": 10020,
           "protocol": "tcp"
       }
   ],
   "ports": [
-      10007
+      10020
   ],
   "readinessChecks": [],
   "taskKillGracePeriodSeconds": null,

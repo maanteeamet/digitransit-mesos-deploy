@@ -2,6 +2,8 @@
   roles:
      - {role: digitransit-azure-cdn}
   vars:
-    environment_type: DEV
-    origin_host: dev-api.digitransit.fi
-    origin_header: dev-api.digitransit.fi
+     environment_type: DEV
+     project_name: peatusee
+     project: peatusee
+     origin_host: api.dev.peatus.ee
+     origin_header: api.dev.peatus.ee
