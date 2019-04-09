@@ -11,9 +11,14 @@ pipeline {
               checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/digitransit-proxy.git']]])
             }
         }
-        stage('Build image') {
+        stage('Docker Build image') {
             steps {
-              sh 'ls -l'
+              sh 'docker build --tag=peatusee.azurecr.io/digitransit-proxy:latest .'
+            }
+        }
+        stage('Docker Push image') {
+            steps {
+              sh 'docker push peatusee.azurecr.io/digitransit-proxy:latest'
             }
         }
     }
