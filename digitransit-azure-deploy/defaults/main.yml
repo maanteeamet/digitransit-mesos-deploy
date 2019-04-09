@@ -43,8 +43,6 @@ container:
 - name: "pelias-data-container"
   config: "pelias-data-container-{{ environment_type | lower }}"
 
-- name: "hsl-timetable-container"
-  config: "hsl-timetable-container-{{ environment_type | lower }}"
 
 
 dev_container:
@@ -67,9 +65,6 @@ dev_container:
 - name: "osmtracker"
   config: "osmtracker-dev"
 
-- name: "hsl-timetable-builder"
-  config: "hsl-timetable-builder-dev"
-
 filesecrets:
 - "digitransit-ui-matka-{{environment_type | lower}}.json"
 - "opentripplanner-estonia-{{environment_type | lower}}.json"
@@ -79,7 +74,6 @@ dockersecrets:
 - "otp-data-builder-dev-dev.json"
 - "otp-data-builder-prod-dev.json"
 - "otp-data-builder-test-dev.json"
-- "hsl-timetable-builder-dev.json"
 
 slacksecrets:
 - "pelias-data-container-builder-dev.json"
@@ -87,7 +81,6 @@ slacksecrets:
 - "otp-data-builder-prod-dev.json"
 - "otp-data-builder-test-dev.json"
 - "digitransit-performance-tests-dev.json"
-- "hsl-timetable-builder-dev.json"
 
 proxysecrets:
 - { secret: "oldlissubasickey", answer: "{{old_lissu_basic_key}}" }
