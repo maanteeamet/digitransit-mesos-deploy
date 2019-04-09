@@ -11,6 +11,11 @@ pipeline {
               checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/hsl-map-server.git']]])
             }
         }
+        stage('Fetch tiles') {
+            steps {
+              sh 'cp /usr/lib/jenkins/tiles.mbtiles ./'
+            }
+        }
         stage('Docker Build image') {
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/hsl-map-server:latest .'
