@@ -1,0 +1,88 @@
+yum install java-1.8.0-openjdk-devel
+curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+
+rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+yum install jenkins git
+systemctl start jenkins
+systemctl enable jenkins
+
+
+yum install httpd
+Add apache configuration for port 80 (see below example for /etc/httpd/conf.d/jenkins.conf)
+systemctl enable httpd
+systemctl start httpd
+
+
+yum install epel-release.noarch
+yum install certbot python2-certbot-apache
+certbot --apache
+
+Add to cron and check if cert works.
+[root@jenkins azureuser]# cat /etc/cron.d/certbot 
+0 0,12 * * * python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew 
+
+
+Set: SELINUX=permissive in /etc/selinux/config (reboot)
+
+Add 443 configuration for httpd and restart (see below example for /etc/httpd/conf.d/jenkins-le-ssl.conf)
+
+
+Example httpd configuration for jenkins:
+[root@jenkins azureuser]# cat /etc/httpd/conf.d/jenkins.conf 
+<VirtualHost *:80>
+    DocumentRoot "/var/www/html/"
+    ServerName jenkins.dev.peatus.ee
+
+    <Directory "/srv/apps/jenkins/">
+        AllowOverride None
+        Require all granted
+    </Directory>
+RewriteEngine on
+RewriteCond %{SERVER_NAME} =jenkins.dev.peatus.ee
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>
+[root@jenkins azureuser]# cat /etc/httpd/conf.d/jenkins-le-ssl.conf 
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    #DocumentRoot "/var/www/html/"
+    ServerName jenkins.dev.peatus.ee
+
+SSLCertificateFile /etc/letsencrypt/live/jenkins.dev.peatus.ee/cert.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/jenkins.dev.peatus.ee/privkey.pem
+Include /etc/letsencrypt/options-ssl-apache.conf
+SSLCertificateChainFile /etc/letsencrypt/live/jenkins.dev.peatus.ee/chain.pem
+
+
+    ProxyPreserveHost On
+    ProxyRequests Off
+    AllowEncodedSlashes NoDecode
+    ProxyPass / http://127.0.0.1:8080/ nocanon
+    ProxyPassReverse / http://127.0.0.1:8080/
+    ProxyPassReverse / https://jenkins.dev.peatus.ee/
+
+    <Proxy http://127.0.0.1:8080*>
+        Order deny,allow
+        Allow from all
+    </Proxy>
+
+</VirtualHost>
+</IfModule>
+
+
+
+
+
+Install docker.
+Follow: https://docs.docker.com/install/linux/docker-ce/centos/
+
+Add jenkins to docker group
+gpasswd -a jenkins docker
+
+
+
+su - jenkins -s /bin/bash
+docker login --username=peatusee peatusee.azurecr.io
+ssh-keygen
+cat /var/lib/jenkins/.ssh/id_rsa.pub
+exit
+
