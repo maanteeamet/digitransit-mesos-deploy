@@ -1,6 +1,6 @@
 {
   "uris":  [
-      "https://loovsys.eu/docker.tar.gz"
+      "http://172.16.1.4/docker.tar.gz"
   ],
     "acceptedResourceRoles": null,
     "backoffFactor": 1.15,
