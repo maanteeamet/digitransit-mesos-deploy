@@ -11,9 +11,25 @@ pipeline {
               checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/OpenTripPlanner.git']]])
             }
         }
+        stage('Docker Build image builder') {
+            steps {
+              sh 'docker build --tag=peatusee.azurecr.io/opentripplanner-estonia:builder -f Dockerfile.builder .'
+            }
+        }
+        stage('Docker Push image builder') {
+            steps {
+              sh 'docker push peatusee.azurecr.io/opentripplanner-estonia:builder'
+            }
+        }
+        stage('Create targets') {
+            steps {
+              sh 'mkdir export'
+              sh 'docker run --rm --entrypoint tar "peatusee.azurecr.io/opentripplanner-estonia:builder" -c target|tar x -C ./'
+            }
+        }
         stage('Docker Build image') {
             steps {
-              sh 'docker build --tag=peatusee.azurecr.io/opentripplanner-estonia:latest .'
+              sh 'docker build --tag=peatusee.azurecr.io/opentripplanner-estonia:latest -f Dockerfile .'
             }
         }
         stage('Docker Push image') {
