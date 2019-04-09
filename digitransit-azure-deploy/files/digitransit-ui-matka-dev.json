@@ -48,7 +48,7 @@
         "CONFIG": "estonia",
         "MAP_URL": "https://api.dev.peatus.ee",
         "OTP_URL": "https://api.dev.peatus.ee/routing/v1/routers/estonia/",
-        "GEOCODING_BASE_URL": "http://api.dev.peatus.ee/geocoding/v1",
+        "GEOCODING_BASE_URL": "https://api.dev.peatus.ee/geocoding/v1",
         "NODE_OPTS": "--max_old_space_size=600",
         "PIWIK_ADDRESS": "",
         "PIWIK_ID": "",
