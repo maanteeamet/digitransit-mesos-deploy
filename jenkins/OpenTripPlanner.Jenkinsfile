@@ -13,24 +13,24 @@ pipeline {
         }
         stage('Extract mvn cache') {
             steps {
-              sh 'docker run --rm --entrypoint tar "peatusee.azurecr.io/opentripplanner-estonia:builder" -c /root/.m2|tar x -C ./'
+              sh 'docker run --rm --entrypoint tar "peatusee.azurecr.io/opentripplanner:builder" -c /root/.m2|tar x -C ./'
               sh 'ls -l'
             }
         }
         stage('Docker Build image builder') {
             steps {
-              sh 'docker build --tag=peatusee.azurecr.io/opentripplanner-estonia:builder -f Dockerfile.builder .'
+              sh 'docker build --tag=peatusee.azurecr.io/opentripplanner:builder -f Dockerfile.builder .'
             }
         }
         stage('Docker Push image builder') {
             steps {
-              sh 'docker push peatusee.azurecr.io/opentripplanner-estonia:builder'
+              sh 'docker push peatusee.azurecr.io/opentripplanner:builder'
             }
         }
         stage('Create targets') {
             steps {
               sh 'mkdir export'
-              sh 'docker run --rm --entrypoint tar "peatusee.azurecr.io/opentripplanner-estonia:builder" -c target|tar x -C ./'
+              sh 'docker run --rm --entrypoint tar "peatusee.azurecr.io/opentripplanner:builder" -c target|tar x -C ./'
             }
         }
         stage('Docker Build image') {
