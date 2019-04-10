@@ -11,6 +11,12 @@ pipeline {
               checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/OpenTripPlanner.git']]])
             }
         }
+        stage('Extract mvn cache') {
+            steps {
+              sh 'docker run --rm --entrypoint tar "peatusee.azurecr.io/opentripplanner-estonia:builder" -c /root/.m2|tar x -C ./'
+              sh 'ls -l'
+            }
+        }
         stage('Docker Build image builder') {
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/opentripplanner-estonia:builder -f Dockerfile.builder .'
