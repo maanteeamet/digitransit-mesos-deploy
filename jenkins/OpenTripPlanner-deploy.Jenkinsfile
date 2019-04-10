@@ -35,14 +35,14 @@ pipeline {
               sh 'gulp router:buildGraph || exit 0'
             }
         }
-        stage('Run deploy.sh') {
+        stage('Build container') {
             steps {
-              sh './deploy.sh estonia'
+              sh 'cd data/build/estonia && docker build -t peatusee.azurecr.io/opentripplanner-data-container-estonia:latest .'
             }
         }
         stage('Push data container') {
             steps {
-              sh 'docker push peatusee.azurecr.io/opentripplanner-data-container-estonia'
+              sh 'docker push peatusee.azurecr.io/opentripplanner-data-container-estonia:latest'
             }
         }
     }
