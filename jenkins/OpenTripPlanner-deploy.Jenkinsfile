@@ -24,13 +24,13 @@ pipeline {
         }
         stage('Run gulp') {
             steps {
-              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine ./node_modules/.bin/gulp seed'
-              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine ./node_modules/.bin/gulp osm:update'
-              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine ./node_modules/.bin/gulp gtfs:dl'
-              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine ./node_modules/.bin/gulp gtfs:fit'
-              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine ./node_modules/.bin/gulp gtfs:filter'
-              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine ./node_modules/.bin/gulp gtfs:id'
-              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine ./node_modules/.bin/gulp router:buildGraph'
+              sh './node_modules/.bin/gulp seed'
+              sh './node_modules/.bin/gulp osm:update'
+              sh './node_modules/.bin/gulp gtfs:dl'
+              sh './node_modules/.bin/gulp gtfs:fit'
+              sh './node_modules/.bin/gulp gtfs:filter'
+              sh './node_modules/.bin/gulp gtfs:id'
+              sh './node_modules/.bin/gulp router:buildGraph'
             }
         }
         stage('Run deploy.sh') {
