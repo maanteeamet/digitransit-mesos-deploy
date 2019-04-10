@@ -26,13 +26,13 @@ pipeline {
         stage('Run gulp') {
             steps {
               sh 'env'
-              sh 'gulp seed || exit 0'
+              sh 'gulp seed'
               sh 'gulp osm:update'
               sh 'gulp gtfs:dl'
               sh 'gulp gtfs:fit'
               sh 'gulp gtfs:filter'
               sh 'gulp gtfs:id'
-              sh 'gulp router:buildGraph || exit 0'
+              sh 'gulp router:buildGraph'
             }
         }
         stage('Push data container') {
