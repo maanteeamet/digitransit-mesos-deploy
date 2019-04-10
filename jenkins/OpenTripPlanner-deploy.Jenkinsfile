@@ -7,7 +7,11 @@ pipeline {
     }
    environment {
        ROUTERS = "estonia"
-       
+       SEED_TAG = "latest"
+       OTP_TAG = "latest"
+       TOOLS_TAG = "latest"
+       DATA = "/opt/otp-data-builder/data"
+       DOCKER_TAG = "latest"
    }
     stages {
         stage('Git checkout') {
@@ -22,13 +26,14 @@ pipeline {
         }
         stage('Run gulp') {
             steps {
+              sh 'env'
               sh 'gulp seed || exit 0'
               sh 'gulp osm:update'
               sh 'gulp gtfs:dl'
               sh 'gulp gtfs:fit'
               sh 'gulp gtfs:filter'
               sh 'gulp gtfs:id'
-              sh 'gulp router:buildGraph'
+              sh 'gulp router:buildGraph || exit 0'
             }
         }
         stage('Run deploy.sh') {
