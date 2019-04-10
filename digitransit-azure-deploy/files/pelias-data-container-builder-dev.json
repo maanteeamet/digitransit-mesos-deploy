@@ -36,9 +36,9 @@
   "dependencies": [],
   "disk": 0,
   "env": {
-      "DOCKER_AUTH": "hEaxjl961ndknggU5bHHhaW/YmjZHLUo",
-      "DOCKER_USER": "peatusee",
-      "MMLAPIKEY": "<api key>",
+      "DOCKER_AUTH": "dockerauth",
+      "DOCKER_USER": "dockeruser",
+      "MMLAPIKEY": "mmlapikey",
       "ORG": "peatusee.azurecr.io"
   },
   "gpus": 0,

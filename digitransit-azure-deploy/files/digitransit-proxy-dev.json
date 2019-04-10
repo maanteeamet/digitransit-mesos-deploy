@@ -34,7 +34,7 @@
   "cpus": 2,
   "dependencies": [],
   "disk": 0,
-  "env": {"OLD_LISSU_BASIC_AUTH":"\"Basic dGVzdG1udDpLRm44eWVjcXZuWjI=\"","JOJO_BASIC_AUTH":"\"Basic dGVzdG1udDpLRm44eWVjcXZuWjI=\"","LINKKI_BASIC_AUTH":"\"Basic dGVzdG1udDpLRm44eWVjcXZuWjI=\"","VILKKU_BASIC_AUTH":"\"Basic dGVzdG1udDpLRm44eWVjcXZuWjI=\"","NEW_LISSU_BASIC_AUTH":"\"Basic dGVzdG1udDpLRm44eWVjcXZuWjI=\"","LAPPEENRANTA_BASIC_AUTH":"\"Basic dGVzdG1udDpLRm44eWVjcXZuWjI=\""},
+  "env": {"OLD_LISSU_BASIC_AUTH":"\"Basic oldlissubasickey\"","JOJO_BASIC_AUTH":"\"Basic oldlissubasickey\"","LINKKI_BASIC_AUTH":"\"Basic oldlissubasickey\"","VILKKU_BASIC_AUTH":"\"Basic oldlissubasickey\"","NEW_LISSU_BASIC_AUTH":"\"Basic oldlissubasickey\"","LAPPEENRANTA_BASIC_AUTH":"\"Basic oldlissubasickey\""},
   "gpus": 0,
   "healthChecks": [
       {
