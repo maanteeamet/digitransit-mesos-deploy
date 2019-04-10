@@ -14,7 +14,6 @@ pipeline {
         stage('Extract mvn cache') {
             steps {
               sh 'docker run --rm --entrypoint tar "peatusee.azurecr.io/opentripplanner:builder" -c /root/.m2|tar x -C ./'
-              sh 'ls -l'
             }
         }
         stage('Docker Build image builder') {
@@ -35,12 +34,12 @@ pipeline {
         }
         stage('Docker Build image') {
             steps {
-              sh 'docker build --tag=peatusee.azurecr.io/opentripplanner-estonia:latest -f Dockerfile .'
+              sh 'docker build --tag=peatusee.azurecr.io/opentripplanner:latest -f Dockerfile .'
             }
         }
         stage('Docker Push image') {
             steps {
-              sh 'docker push peatusee.azurecr.io/opentripplanner-estonia:latest'
+              sh 'docker push peatusee.azurecr.io/opentripplanner:latest'
             }
         }
         stage('Mesos restart container') {
