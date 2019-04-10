@@ -17,19 +17,20 @@ pipeline {
         }
         stage('Run npm') {
             steps {
-              sh 'docker run -i -w /data --rm -v.:/data node:10-alpine npm install'
-              sh 'docker run -i -w /data --rm -v.:/data node:10-alpine npm install gulp-cli'
+              
+              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine npm install'
+              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine npm install gulp-cli'
             }
         }
         stage('Run gulp') {
             steps {
-              sh 'docker run -i -w /data --rm -v.:/data node:10-alpine gulp seed'
-              sh 'docker run -i -w /data --rm -v.:/data node:10-alpine gulp osm:update'
-              sh 'docker run -i -w /data --rm -v.:/data node:10-alpine gulp gtfs:dl'
-              sh 'docker run -i -w /data --rm -v.:/data node:10-alpine gulp gtfs:fit'
-              sh 'docker run -i -w /data --rm -v.:/data node:10-alpine gulp gtfs:filter'
-              sh 'docker run -i -w /data --rm -v.:/data node:10-alpine gulp gtfs:id'
-              sh 'docker run -i -w /data --rm -v.:/data node:10-alpine gulp router:buildGraph'
+              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine gulp seed'
+              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine gulp osm:update'
+              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine gulp gtfs:dl'
+              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine gulp gtfs:fit'
+              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine gulp gtfs:filter'
+              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine gulp gtfs:id'
+              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine gulp router:buildGraph'
             }
         }
         stage('Run deploy.sh') {
