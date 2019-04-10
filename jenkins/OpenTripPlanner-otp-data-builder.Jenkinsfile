@@ -11,6 +11,11 @@ pipeline {
               checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/OpenTripPlanner-data-container.git']]])
             }
         }
+        stage('Run npm') {
+            steps {
+              sh 'npm install'
+            }
+        }
         stage('Docker Build image builder') {
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/otp-data-builder:latest .'
