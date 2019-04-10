@@ -10,7 +10,6 @@ pipeline {
        SEED_TAG = "latest"
        OTP_TAG = "latest"
        TOOLS_TAG = "latest"
-       DATA = "/opt/otp-data-builder/data"
        DOCKER_TAG = "latest"
    }
     stages {
