@@ -26,7 +26,7 @@ pipeline {
         stage('Run gulp') {
             steps {
               sh 'env'
-              sh 'gulp seed'
+              sh 'gulp seed || exit 0'
               sh 'gulp osm:update'
               sh 'gulp gtfs:dl'
               sh 'gulp gtfs:fit'
