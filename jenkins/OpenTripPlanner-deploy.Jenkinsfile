@@ -17,20 +17,18 @@ pipeline {
         }
         stage('Run npm') {
             steps {
-              
-              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine npm install'
-              sh 'docker run -i -w /data --rm -v"$(pwd)":/data node:10-alpine npm install gulp-cli'
+              sh 'npm install'
             }
         }
         stage('Run gulp') {
             steps {
-              sh './node_modules/.bin/gulp seed'
-              sh './node_modules/.bin/gulp osm:update'
-              sh './node_modules/.bin/gulp gtfs:dl'
-              sh './node_modules/.bin/gulp gtfs:fit'
-              sh './node_modules/.bin/gulp gtfs:filter'
-              sh './node_modules/.bin/gulp gtfs:id'
-              sh './node_modules/.bin/gulp router:buildGraph'
+              sh 'gulp seed'
+              sh 'gulp osm:update'
+              sh 'gulp gtfs:dl'
+              sh 'gulp gtfs:fit'
+              sh 'gulp gtfs:filter'
+              sh 'gulp gtfs:id'
+              sh 'gulp router:buildGraph'
             }
         }
         stage('Run deploy.sh') {
