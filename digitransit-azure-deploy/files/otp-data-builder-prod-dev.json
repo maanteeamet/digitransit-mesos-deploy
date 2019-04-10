@@ -10,7 +10,7 @@
     "container": {
         "docker": {
             "forcePullImage": true,
-            "image": "hsldevcom/otp-data-builder:prod",
+            "image": "peatusee.azurecr.io/otp-data-builder:prod",
             "network": "HOST",
             "parameters": [],
             "portMappings": null,
@@ -44,9 +44,9 @@
         "BUILDER_TYPE": "prod",
         "BUILD_TIME": "23:00:00",
         "DATA": "/opt/otp-data-builder/data",
-        "DOCKER_AUTH": "dockerauth",
+        "DOCKER_AUTH": "hEaxjl961ndknggU5bHHhaW/YmjZHLUo",
         "DOCKER_TAG": "prod",
-        "DOCKER_USER": "dockeruser",
+        "DOCKER_USER": "peatusee",
         "HOST_DATA": "/var/lib/docker/otp/data",
         "OTP_TAG": "prod",
         "ROUTERS": "estonia",

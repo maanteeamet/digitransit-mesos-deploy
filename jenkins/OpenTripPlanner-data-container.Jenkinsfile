@@ -13,17 +13,17 @@ pipeline {
         }
         stage('Docker Build image') {
             steps {
-              sh 'docker build --tag=peatusee.azurecr.io/opentripplanner-data-container-estonia:latest .'
+              sh 'docker build --tag=peatusee.azurecr.io/otp-data-builder:latest .'
             }
         }
         stage('Docker Push image') {
             steps {
-              sh 'docker push peatusee.azurecr.io/opentripplanner-data-container-estonia:latest'
+              sh 'docker push peatusee.azurecr.io/otp-data-builder:latest'
             }
         }
         stage('Mesos restart container') {
             steps {
-              sh 'ssh azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com "curl  -H \'Content-Type: application/json\' -X POST http://127.0.0.1:80/service/marathon/v2/apps/opentripplanner-data-con-estonia/restart"'
+              sh 'ssh azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com "curl  -H \'Content-Type: application/json\' -X POST http://127.0.0.1:80/service/marathon/v2/apps/otp-data-builder-dev/restart"'
             }
         }
     }
