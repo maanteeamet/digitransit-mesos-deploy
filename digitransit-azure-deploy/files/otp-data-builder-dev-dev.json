@@ -48,6 +48,7 @@
         "DOCKER_AUTH": "dockerauth",
         "DOCKER_TAG": "latest",
         "DOCKER_USER": "dockeruser",
+        "ORG": "peatusee.azurecr.io",
         "HOST_DATA": "/var/lib/docker/otp/data",
         "OTP_TAG": "latest",
         "ROUTERS": "estonia",
