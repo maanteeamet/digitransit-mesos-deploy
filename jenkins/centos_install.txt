@@ -86,3 +86,11 @@ ssh-keygen
 cat /var/lib/jenkins/.ssh/id_rsa.pub
 exit
 
+
+
+
+#NPM
+curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+yum remove -y nodejs npm
+yum install -y nodejs
+
