@@ -5,6 +5,10 @@ pipeline {
         disableConcurrentBuilds()
         timestamps()
     }
+   environment {
+       ROUTERS = "estonia"
+       
+   }
     stages {
         stage('Git checkout') {
             steps {
@@ -18,6 +22,7 @@ pipeline {
         }
         stage('Run gulp') {
             steps {
+              sh 'gulp seed'
               sh 'gulp osm:update'
               sh 'gulp gtfs:dl'
               sh 'gulp gtfs:fit'
