@@ -15,7 +15,7 @@ pipeline {
             steps {
               dir("projects/estonia") {
                 sh 'mkdir data'
-                sh 'sed -i '/DATA_DIR/d' .env && echo 'DATA_DIR=data' >> .env'
+                sh "sed -i '/DATA_DIR/d' .env && echo 'DATA_DIR=data' >> .env"
                 sh 'pelias compose pull'
                 sh 'pelias elastic start'
                 sh 'pelias elastic wait'
