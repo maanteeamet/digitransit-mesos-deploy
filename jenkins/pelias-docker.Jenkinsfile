@@ -11,19 +11,39 @@ pipeline {
               checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/pelias-docker.git']]])
             }
         }
-        stage('Docker Build image') {
+        stage('Build map data') {
             steps {
               dir("projects/estonia") {
-                sh "mkdir -p /pelias-data/tiger/shapefiles || exit 0"
-                sh "sed -i '/DATA_DIR/d' .env && echo 'DATA_DIR=/pelias-data' >> .env"
-                sh "sed -i '/DOCKER_USER/d' .env && echo 'DOCKER_USER=996' >> .env"
-                sh 'pelias compose pull'
-                sh 'pelias elastic start'
-                sh 'pelias elastic wait'
-                sh 'pelias elastic create'
-                sh 'pelias download all'
-                sh 'pelias prepare all'
-                sh 'pelias import all'
+                #sh "mkdir -p /pelias-data/tiger/shapefiles || exit 0"
+                #sh "sed -i '/DATA_DIR/d' .env && echo 'DATA_DIR=/pelias-data' >> .env"
+                #sh "sed -i '/DOCKER_USER/d' .env && echo 'DOCKER_USER=996' >> .env"
+                #sh 'pelias compose pull'
+                #sh 'pelias elastic start'
+                #sh 'pelias elastic wait'
+                #sh 'pelias elastic create'
+                #sh 'pelias download all'
+                #sh 'pelias prepare all'
+                #sh 'pelias import all'
+                sh "docker stop pelias_elasticsearch || exit 0"
+                sh "cp Dockerfile.* /pelias-data/"
+                sh "cp elasticsearch.yml /pelias-data/"
+                sh 'cp pelias.json /pelias-data/'
+              }
+            }
+        }
+        stage('Docker Build images') {
+            steps {
+              dir("/pelias-data") {
+                sh 'docker build --tag=peatusee.azurecr.io/pelias-elastic:latest -f Dockerfile.elasticsearch .'
+                sh 'docker build --tag=peatusee.azurecr.io/pelias-api:latest -f Dockerfile.pelias-api .'
+              }
+            }
+        }
+        stage('Docker Push images') {
+            steps {
+              dir("/pelias-data") {
+                sh 'docker push peatusee.azurecr.io/pelias-elastic:latest'
+                sh 'docker push peatusee.azurecr.io/pelias-api:latest'
               }
             }
         }
