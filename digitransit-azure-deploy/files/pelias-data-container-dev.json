@@ -15,7 +15,7 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "peatusee.azurecr.io/pelias-data-container",
+          "image": "peatusee.azurecr.io/pelias-elastic",
           "network": "BRIDGE",
           "parameters": [
               {
@@ -52,7 +52,7 @@
   "dependencies": [],
   "disk": 0,
   "env": {
-      "ES_HEAP_SIZE": "2g"
+      "ES_JAVA_OPTS": "-Xms2g -Xmx2g"
   },
   "gpus": 0,
   "healthChecks": [
