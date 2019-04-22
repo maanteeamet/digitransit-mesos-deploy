@@ -14,6 +14,7 @@ pipeline {
         stage('Docker Build image') {
             steps {
               dir("projects/estonia") {
+                sh "mkdir -p /pelias-data/tiger/shapefiles || exit 0"
                 sh "sed -i '/DATA_DIR/d' .env && echo 'DATA_DIR=/pelias-data' >> .env"
                 sh "sed -i '/DOCKER_USER/d' .env && echo 'DOCKER_USER=996' >> .env"
                 sh 'pelias compose pull'
