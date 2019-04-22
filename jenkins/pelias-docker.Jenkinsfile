@@ -14,17 +14,13 @@ pipeline {
         stage('Build map data') {
             steps {
               dir("projects/estonia") {
-
                 sh "docker stop pelias_elasticsearch || exit 0"
-                sh "cp Dockerfile.* /pelias-data/"
-                sh "cp elasticsearch.yml /pelias-data/"
-                sh 'cp pelias.json /pelias-data/'
               }
             }
         }
         stage('Docker Build images') {
             steps {
-              dir("/pelias-data") {
+              dir("projects/estonia") {
                 sh 'docker build --tag=peatusee.azurecr.io/pelias-elastic:latest -f Dockerfile.elasticsearch .'
                 sh 'docker build --tag=peatusee.azurecr.io/pelias-api:latest -f Dockerfile.pelias-api .'
               }
@@ -32,10 +28,8 @@ pipeline {
         }
         stage('Docker Push images') {
             steps {
-              dir("pelias-data") {
                 sh 'docker push peatusee.azurecr.io/pelias-elastic:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-api:latest'
-              }
             }
         }
     }
