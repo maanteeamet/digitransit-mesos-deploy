@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Docker Push images') {
             steps {
-              dir("/pelias-data") {
+              dir("pelias-data") {
                 sh 'docker push peatusee.azurecr.io/pelias-elastic:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-api:latest'
               }
