@@ -24,7 +24,13 @@ i.e.
 
 ansible-playbook digitransit-create-acs.yml --extra-vars "ssh_keys=/home/username/.ssh/key.pub environment_type=PROD"
 
+Azure SSL 
+-----------
+cat STAR_dev_peatus_ee.crt USERTrustRSAAddTrustCA.crt SectigoRSADomainValidationSecureServerCA.crt AddTrustExternalCARoot.crt > cert.crt
+openssl pkcs12 -export -out wc_dev.pfx -inkey dev_peatus_ee_2.key -in  cert.crt
+<enter random password>
 
+Upload pfx to Application gateway (Listeners) and use same password that was in last step.
 
 
 Requirements
