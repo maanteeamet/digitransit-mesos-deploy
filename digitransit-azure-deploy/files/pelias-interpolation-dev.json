@@ -35,7 +35,7 @@
                       "VIP_0": "/pelias-interpolation:4300"
                   },
                   "protocol": "tcp",
-                  "servicePort": 16005
+                  "servicePort": 10028
               }
           ],
           "privileged": false
@@ -51,16 +51,6 @@
   },
   "gpus": 0,
   "healthChecks": [
-      {
-          "gracePeriodSeconds": 300,
-          "ignoreHttp1xx": false,
-          "intervalSeconds": 10,
-          "maxConsecutiveFailures": 5,
-          "path": "/",
-          "portIndex": 0,
-          "protocol": "HTTP",
-          "timeoutSeconds": 10
-      }
   ],
   "id": "/pelias-interpolation",
   "instances": 1,
@@ -72,12 +62,12 @@
   "portDefinitions": [
       {
           "labels": {},
-          "port": 16005,
+          "port": 10028,
           "protocol": "tcp"
       }
   ],
   "ports": [
-      16005
+      10028
   ],
   "readinessChecks": [],
   "taskKillGracePeriodSeconds": null,

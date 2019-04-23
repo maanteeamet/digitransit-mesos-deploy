@@ -35,7 +35,7 @@
                       "VIP_0": "/pelias-libpostal:4400"
                   },
                   "protocol": "tcp",
-                  "servicePort": 11005
+                  "servicePort": 10026
               }
           ],
           "privileged": false
@@ -49,16 +49,7 @@
   "env": {},
   "gpus": 0,
   "healthChecks": [
-      {
-          "gracePeriodSeconds": 300,
-          "ignoreHttp1xx": false,
-          "intervalSeconds": 10,
-          "maxConsecutiveFailures": 5,
-          "path": "/",
-          "portIndex": 0,
-          "protocol": "HTTP",
-          "timeoutSeconds": 10
-      }
+
   ],
   "id": "/pelias-libpostal",
   "instances": 1,
@@ -70,12 +61,12 @@
   "portDefinitions": [
       {
           "labels": {},
-          "port": 11005,
+          "port": 10026,
           "protocol": "tcp"
       }
   ],
   "ports": [
-      11005
+      10026
   ],
   "readinessChecks": [],
   "taskKillGracePeriodSeconds": null,
