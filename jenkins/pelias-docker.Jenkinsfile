@@ -23,7 +23,7 @@ pipeline {
                 sh 'pelias elastic create'
                 sh 'pelias download all'
                 sh 'pelias prepare all'
-                sh 'pelias import all'
+                sh 'pelias import all || exit 0'
                 sh "docker rm -f pelias_elasticsearch || exit 0"
                 sh "cp Dockerfile.* /pelias-data/"
                 sh "cp elasticsearch.yml /pelias-data/"
