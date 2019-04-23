@@ -44,11 +44,5 @@ pipeline {
                 sh 'docker push peatusee.azurecr.io/pelias-api:latest'
             }
         }
-        stage('Cleanup ES') {
-            steps {
-                sh "docker rm -f pelias_elasticsearch || exit 0"
-                sh 'rm -rf /pelias-data/elasticsearch'
-            }
-        }
     }
 }
