@@ -15,13 +15,9 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "peatusee.azurecr.io/pelias-interpolation:latest",
+          "image": "peatusee.azurecr.io/pelias-interpolation",
           "network": "BRIDGE",
           "parameters": [
-              {
-                  "key": "net",
-                  "value": "host"
-              },
               {
                   "key": "name",
                   "value": "pelias-interpolation"
@@ -35,7 +31,7 @@
                       "VIP_0": "/pelias-interpolation:4300"
                   },
                   "protocol": "tcp",
-                  "servicePort": 10028
+                  "servicePort": 10038
               }
           ],
           "privileged": false
@@ -47,10 +43,21 @@
   "dependencies": [],
   "disk": 0,
   "env": {
-        "PORT": "4300",
+      "HOST": "0.0.0.0",
+      "PORT": "4300"
   },
   "gpus": 0,
   "healthChecks": [
+      {
+          "gracePeriodSeconds": 300,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 3,
+          "path": "/search/geojson?lat=58.671392&lon=25.54665&number=1&street=viru",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+      }
   ],
   "id": "/pelias-interpolation",
   "instances": 1,
@@ -58,16 +65,16 @@
       "update": "auto"
   },
   "maxLaunchDelaySeconds": 3600,
-  "mem": 2560,
+  "mem": 2048,
   "portDefinitions": [
       {
           "labels": {},
-          "port": 10028,
+          "port": 10038,
           "protocol": "tcp"
       }
   ],
   "ports": [
-      10028
+      10038
   ],
   "readinessChecks": [],
   "taskKillGracePeriodSeconds": null,

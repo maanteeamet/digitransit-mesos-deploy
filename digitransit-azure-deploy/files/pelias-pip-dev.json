@@ -19,10 +19,6 @@
           "network": "BRIDGE",
           "parameters": [
               {
-                  "key": "net",
-                  "value": "host"
-              },
-              {
                   "key": "name",
                   "value": "pelias-pip"
               }
@@ -47,10 +43,21 @@
   "dependencies": [],
   "disk": 0,
   "env": {
-        "PORT": "4200",
+      "HOST": "0.0.0.0",
+      "PORT": "4200"
   },
   "gpus": 0,
   "healthChecks": [
+      {
+          "gracePeriodSeconds": 300,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 3,
+          "path": "/58.671392/25.54665",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+      }
   ],
   "id": "/pelias-pip",
   "instances": 1,
@@ -58,7 +65,7 @@
       "update": "auto"
   },
   "maxLaunchDelaySeconds": 3600,
-  "mem": 2560,
+  "mem": 1024,
   "portDefinitions": [
       {
           "labels": {},
