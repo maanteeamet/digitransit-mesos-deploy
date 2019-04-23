@@ -9,6 +9,18 @@ container:
 
 - name: "pelias-api"
   config: "pelias-api-{{ environment_type | lower }}"
+  
+- name: "pelias-pip"
+  config: "pelias-pip-{{ environment_type | lower }}"
+  
+- name: "pelias-libpostal"
+  config: "pelias-libpostal-{{ environment_type | lower }}"
+  
+- name: "pelias-placeholder"
+  config: "pelias-placeholder-{{ environment_type | lower }}"
+  
+- name: "pelias-interpolation"
+  config: "pelias-interpolation-{{ environment_type | lower }}"
 
 - name: "raildigitraffic2gtfsrt"
   config: "raildigitraffic2gtfsrt-{{ environment_type | lower }}"

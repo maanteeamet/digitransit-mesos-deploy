@@ -37,12 +37,20 @@ pipeline {
             steps {
                 sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-elastic:latest -f Dockerfile.elasticsearch .'
                 sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-api:latest -f Dockerfile.pelias-api .'
+                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-interpolation:latest -f Dockerfile.interpolation .'
+                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-pip:latest -f Dockerfile.pip .'
+                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-placeholder:latest -f Dockerfile.placeholder .'
+                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-libpostal:latest -f Dockerfile.libpostal .'
             }
         }
         stage('Docker Push images') {
             steps {
                 sh 'docker push peatusee.azurecr.io/pelias-elastic:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-api:latest'
+                sh 'docker push peatusee.azurecr.io/pelias-interpolation:latest'
+                sh 'docker push peatusee.azurecr.io/pelias-pip:latest'
+                sh 'docker push peatusee.azurecr.io/pelias-placeholder:latest'
+                sh 'docker push peatusee.azurecr.io/pelias-libpostal:latest'
             }
         }
     }
