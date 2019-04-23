@@ -29,10 +29,10 @@
           ],
           "portMappings": [
               {
-                  "containerPort": 4200,
+                  "containerPort": 4300,
                   "hostPort": 0,
                   "labels": {
-                      "VIP_0": "/pelias-interpolation:4200"
+                      "VIP_0": "/pelias-interpolation:4300"
                   },
                   "protocol": "tcp",
                   "servicePort": 16005
@@ -46,7 +46,9 @@
   "cpus": 0.5,
   "dependencies": [],
   "disk": 0,
-  "env": {},
+  "env": {
+        "PORT": "4300",
+  },
   "gpus": 0,
   "healthChecks": [
       {

@@ -46,7 +46,9 @@
   "cpus": 0.5,
   "dependencies": [],
   "disk": 0,
-  "env": {},
+  "env": {
+        "PORT": "4200",
+  },
   "gpus": 0,
   "healthChecks": [
       {
