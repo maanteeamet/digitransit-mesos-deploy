@@ -29,6 +29,7 @@ pipeline {
                 sh "cp Dockerfile.* /pelias-data/"
                 sh "cp elasticsearch.yml /pelias-data/"
                 sh 'cp docker-pelias.json /pelias-data/docker-pelias.json'
+                sh "docker rm -f pelias_elasticsearch || exit 0"
               }
             }
         }
