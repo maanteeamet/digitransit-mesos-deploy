@@ -59,9 +59,6 @@ container:
 
 dev_container:
 
-- name: "pelias-data-container-builder"
-  config: "pelias-data-container-builder-dev"
-
 - name: "otp-data-builder-dev"
   config: "otp-data-builder-dev-dev"
 
@@ -82,13 +79,11 @@ filesecrets:
 - "opentripplanner-estonia-{{environment_type | lower}}.json"
 
 dockersecrets:
-- "pelias-data-container-builder-dev.json"
 - "otp-data-builder-dev-dev.json"
 - "otp-data-builder-prod-dev.json"
 - "otp-data-builder-test-dev.json"
 
 slacksecrets:
-- "pelias-data-container-builder-dev.json"
 - "otp-data-builder-dev-dev.json"
 - "otp-data-builder-prod-dev.json"
 - "otp-data-builder-test-dev.json"

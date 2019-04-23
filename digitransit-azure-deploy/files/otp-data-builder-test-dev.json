@@ -44,7 +44,7 @@
         "BUILD_TIME": "23:30:00",
         "DATA": "/opt/otp-data-builder/data",
         "BUILDER_TYPE": "next",
-        "DOCKER_AUTH": "dockerauth",
+        "DOCKER_AUTH": "hEaxjl961ndknggU5bHHhaW/YmjZHLUo",
         "DOCKER_TAG": "next",
         "DOCKER_USER": "dockeruser",
         "HOST_DATA": "/var/lib/docker/otp/data",

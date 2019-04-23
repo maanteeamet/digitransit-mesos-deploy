@@ -45,7 +45,7 @@
         "BUILD_TIME": "23:00:00",
         "BUILD_INTERVAL": "0",
         "DATA": "/opt/otp-data-builder/data",
-        "DOCKER_AUTH": "dockerauth",
+        "DOCKER_AUTH": "hEaxjl961ndknggU5bHHhaW/YmjZHLUo",
         "DOCKER_TAG": "latest",
         "DOCKER_USER": "dockeruser",
         "ORG": "peatusee.azurecr.io",

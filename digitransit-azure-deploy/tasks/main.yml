@@ -138,15 +138,6 @@
          - decrypt
          - deploy
 
-    - name: replace mml api key
-      replace:
-        dest="{{ role_path }}/files/pelias-data-container-builder-dev.json"
-        regexp='mmlapikey'
-        replace="{{mmlapikey}}"
-      tags:
-         - decrypt
-         - deploy
-
   when: environment_type == 'DEV'
 
 ###UPDATE OR CREATE THE CONTAINERS
@@ -288,13 +279,5 @@
          - encrypt
          - deploy
 
-    - name: re-encrypt mml api key
-      replace:
-        dest="{{ role_path }}/files/pelias-data-container-builder-dev.json"
-        regexp="{{mmlapikey}}"
-        replace='mmlapikey'
-      tags:
-         - encrypt
-         - deploy
 
   when: environment_type == 'DEV'
