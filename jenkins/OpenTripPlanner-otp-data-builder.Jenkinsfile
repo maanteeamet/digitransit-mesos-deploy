@@ -5,6 +5,13 @@ pipeline {
         disableConcurrentBuilds()
         timestamps()
     }
+   environment {
+       ROUTERS = "estonia"
+       SEED_TAG = "latest"
+       OTP_TAG = "latest"
+       TOOLS_TAG = "latest"
+       DOCKER_TAG = "latest"
+   }
     stages {
         stage('Git checkout') {
             steps {
