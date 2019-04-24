@@ -48,16 +48,7 @@
   },
   "gpus": 0,
   "healthChecks": [
-      {
-          "gracePeriodSeconds": 600,
-          "ignoreHttp1xx": false,
-          "intervalSeconds": 10,
-          "maxConsecutiveFailures": 3,
-          "path": "/parser/search?text=viru",
-          "portIndex": 0,
-          "protocol": "HTTP",
-          "timeoutSeconds": 10
-      }
+
   ],
   "id": "/pelias-libpostal",
   "instances": 1,

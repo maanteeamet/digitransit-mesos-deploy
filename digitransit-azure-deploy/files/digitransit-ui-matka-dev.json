@@ -53,8 +53,8 @@
         "PIWIK_ADDRESS": "",
         "PIWIK_ID": "",
         "RELAY_FETCH_TIMEOUT": "3000",
-        "SENTRY_DSN": "https://sentryuser@sentry-analytics.dev.peatus.ee/peatusee",
-        "SENTRY_SECRET_DSN": "https://sentryuser:sentrypassword@sentry-analytics.dev.peatus.ee/peatusee"
+        "SENTRY_DSN": "sentrydsnenvsecret",
+        "SENTRY_SECRET_DSN": "sentrydsnsecret"
     },
     "gpus": 0,
     "healthChecks": [

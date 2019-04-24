@@ -43,9 +43,8 @@
     "env": {
         "BUILDER_TYPE": "dev",
         "BUILD_TIME": "23:00:00",
-        "BUILD_INTERVAL": "0",
         "DATA": "/opt/otp-data-builder/data",
-        "DOCKER_AUTH": "hEaxjl961ndknggU5bHHhaW/YmjZHLUo",
+        "DOCKER_AUTH": "dockerauth",
         "DOCKER_TAG": "latest",
         "DOCKER_USER": "dockeruser",
         "ORG": "peatusee.azurecr.io",
@@ -61,7 +60,7 @@
             "command": {
                 "value": "true"
             },
-            "gracePeriodSeconds": 30,
+            "gracePeriodSeconds": 600,
             "ignoreHttp1xx": false,
             "intervalSeconds": 60,
             "maxConsecutiveFailures": 2,

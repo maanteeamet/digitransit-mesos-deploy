@@ -9,5 +9,5 @@
      master_nodes: 1
      #How many azure vms needs as nodes for DCOS
      agent_nodes: 9
-     ssh_keys: /home/martivo/.ssh/id_rsa.pub
+     ssh_keys: id_rsa_dev.pub
      admin_user: azureuser
