@@ -23,22 +23,22 @@ pipeline {
               sh 'npm install'
             }
         }
-        stage('Docker Build image builder') {
+        stage('Docker Build image otp-data-builder') {
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/otp-data-builder:latest .'
             }
         }
-        stage('Docker Push image builder') {
+        stage('Docker Push image otp-data-builder') {
             steps {
               sh 'docker push peatusee.azurecr.io/otp-data-builder:latest'
             }
         }
-        stage('Docker Build image tools') {
+        stage('Docker Build image otp-data-tools') {
             steps {
               sh 'cd otp-data-tools && docker build --tag=peatusee.azurecr.io/otp-data-tools:latest .'
             }
         }
-        stage('Docker Push image tools') {
+        stage('Docker Push image otp-data-tools') {
             steps {
               sh 'docker push peatusee.azurecr.io/otp-data-tools:latest'
             }
@@ -53,9 +53,10 @@ pipeline {
               sh 'gulp gtfs:filter'
               sh 'gulp gtfs:id'
               sh 'gulp router:buildGraph'
+              sh 'find data'
             }
         }
-        stage('Push data container') {
+        stage('Push data opentripplanner-data-container-estonia') {
             steps {
               sh 'docker push peatusee.azurecr.io/opentripplanner-data-container-estonia:latest'
             }
