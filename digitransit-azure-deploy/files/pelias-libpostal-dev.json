@@ -48,7 +48,16 @@
   },
   "gpus": 0,
   "healthChecks": [
-
+      {
+          "gracePeriodSeconds": 120,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 3,
+          "path": "/parse?address=475+Sansome+St+San+Francisco+CA",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+      }
   ],
   "id": "/pelias-libpostal",
   "instances": 1,
