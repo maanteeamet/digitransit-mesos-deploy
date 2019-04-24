@@ -2,4 +2,5 @@
 *.swp
 *.iml
 *~
+id_rsa*
 vault_password
