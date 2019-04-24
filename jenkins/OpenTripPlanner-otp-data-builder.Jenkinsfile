@@ -45,7 +45,6 @@ pipeline {
         }
         stage('Run gulp') {
             steps {
-              sh 'env'
               sh 'gulp seed || exit 0'
               sh 'gulp osm:update'
               sh 'gulp gtfs:dl'
@@ -54,6 +53,13 @@ pipeline {
               sh 'gulp gtfs:id'
               sh 'gulp router:buildGraph'
               sh 'find data'
+            }
+        }
+        stage('Create container opentripplanner-data-container-estonia') {
+            steps {
+              dir("data/build/estonia/") {
+                sh "docker build --tag=peatusee.azurecr.io/opentripplanner-data-container-estonia:latest ."
+              }
             }
         }
         stage('Push data opentripplanner-data-container-estonia') {
