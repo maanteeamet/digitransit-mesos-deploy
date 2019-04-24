@@ -43,6 +43,7 @@
     "env": {
         "BUILDER_TYPE": "dev",
         "BUILD_TIME": "23:00:00",
+        "BUILD_INTERVAL": "-1",
         "DATA": "/opt/otp-data-builder/data",
         "DOCKER_AUTH": "dockerauth",
         "DOCKER_TAG": "latest",

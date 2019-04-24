@@ -36,6 +36,23 @@ pipeline {
               sh 'docker push peatusee.azurecr.io/otp-data-tools:latest'
             }
         }
+        stage('Run gulp') {
+            steps {
+              sh 'env'
+              sh 'gulp seed || exit 0'
+              sh 'gulp osm:update'
+              sh 'gulp gtfs:dl'
+              sh 'gulp gtfs:fit'
+              sh 'gulp gtfs:filter'
+              sh 'gulp gtfs:id'
+              sh 'gulp router:buildGraph'
+            }
+        }
+        stage('Push data container') {
+            steps {
+              sh 'docker push peatusee.azurecr.io/opentripplanner-data-container-estonia:latest'
+            }
+        }
         stage('Mesos restart container') {
             steps {
               sh 'ssh azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com "curl  -H \'Content-Type: application/json\' -X POST http://127.0.0.1:80/service/marathon/v2/apps/otp-data-builder-dev/restart"'
