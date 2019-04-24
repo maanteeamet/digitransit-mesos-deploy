@@ -58,7 +58,7 @@ pipeline {
         stage('Create container opentripplanner-data-container-estonia') {
             steps {
               dir("data/build/estonia/") {
-                sh "docker build --tag=peatusee.azurecr.io/opentripplanner-data-container-estonia:latest ."
+                sh "docker build --tag=peatusee.azurecr.io/opentripplanner-data-container-estonia:latest -f Dockerfile.data-container ."
               }
             }
         }
@@ -69,6 +69,7 @@ pipeline {
         }
         stage('Mesos restart container') {
             steps {
+            
               sh 'ssh azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com "curl  -H \'Content-Type: application/json\' -X POST http://127.0.0.1:80/service/marathon/v2/apps/otp-data-builder-dev/restart"'
             }
         }
