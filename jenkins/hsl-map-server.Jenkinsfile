@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/patch-1']], userRemoteConfigs: [[url: 'https://github.com/herrbpl/hsl-map-server.git']]])
+              checkout([$class: 'GitSCM', branches: [[name: '*/siim-2019042601-mapserver-restore-work-parkandride']], userRemoteConfigs: [[url: 'https://github.com/herrbpl/hsl-map-server.git']]])
             }
         }
         stage('Fetch tiles') {
