@@ -17,7 +17,7 @@ pipeline {
                 sh "mkdir -p /pelias-data/tiger/shapefiles || exit 0"
                 sh "sed -i '/DATA_DIR/d' .env && echo 'DATA_DIR=/pelias-data' >> .env"
                 sh "sed -i '/DOCKER_USER/d' .env && echo 'DOCKER_USER=996' >> .env"
-                sh "docker rm -f pelias_elasticsearch || exit 0"
+                sh "docker rm -f pelias_elasticsearch pelias_pip-service || exit 0"
                 sh 'rm -rf /pelias-data/elasticsearch'
                 sh 'pelias compose pull'
                 sh 'pelias elastic start'
@@ -30,7 +30,7 @@ pipeline {
                 sh "cp Dockerfile.* /pelias-data/"
                 sh "cp elasticsearch.yml /pelias-data/"
                 sh 'cp docker-pelias.json /pelias-data/docker-pelias.json'
-                sh "docker rm -f pelias_elasticsearch || exit 0"
+                sh "docker rm -f pelias_elasticsearch pelias_pip-service || exit 0"
               }
             }
         }
