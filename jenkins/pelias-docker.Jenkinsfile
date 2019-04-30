@@ -36,12 +36,14 @@ pipeline {
         }
         stage('Docker Build images') {
             steps {
-                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-elastic:latest -f Dockerfile.elasticsearch .'
-                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-api:latest -f Dockerfile.pelias-api .'
-                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-interpolation:latest -f Dockerfile.interpolation .'
-                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-pip:latest -f Dockerfile.pip .'
-                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-placeholder:latest -f Dockerfile.placeholder .'
-                sh 'cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-libpostal:latest -f Dockerfile.libpostal .'
+              dir("projects/estonia") {
+                sh 'cp Dockerignore.elasticsearch /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-elastic:latest -f Dockerfile.elasticsearch .'
+                sh 'cp Dockerignore.pelias-api /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-api:latest -f Dockerfile.pelias-api .'
+                sh 'cp Dockerignore.interpolation /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-interpolation:latest -f Dockerfile.interpolation .'
+                sh 'cp Dockerignore.pip /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-pip:latest -f Dockerfile.pip .'
+                sh 'cp Dockerignore.placeholder /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-placeholder:latest -f Dockerfile.placeholder .'
+                sh 'cp Dockerignore.libpostal /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-libpostal:latest -f Dockerfile.libpostal .'
+              }
             }
         }
         stage('Docker Push images') {
