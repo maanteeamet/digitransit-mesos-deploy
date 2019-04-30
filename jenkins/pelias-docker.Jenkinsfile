@@ -26,6 +26,7 @@ pipeline {
                 sh 'pelias download all'
                 sh 'pelias prepare all'
                 sh 'pelias import all || exit 0'
+                sh "docker run --rm -i -v ${WORKSPACE}/estonia/pelias.json:/code/pelias.json -v /pelias-data:/data  -e GTFS_URL=http://peatus.ee/gtfs/gtfs.zip -e PREFIX=estonia -e PELIAS_CONFIG=/code/pelias.json --name pelias-gtfs dolmit/pelias-gtfs:latest"
                 sh "cp Dockerfile.* /pelias-data/"
                 sh "cp elasticsearch.yml /pelias-data/"
                 sh 'cp docker-pelias.json /pelias-data/docker-pelias.json'
