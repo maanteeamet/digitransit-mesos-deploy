@@ -11,6 +11,11 @@ pipeline {
               checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/pelias-api.git']]])
             }
         }
+        stage('Fix configuration for mesos') {
+            steps {
+              sh 'perl -p -i -e "s/pelias_elasticsearch/pelias-data-container/g" pelias.json.docker'
+            }
+        }
         stage('Docker Build image') {
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/pelias-api:latest .'
