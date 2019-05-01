@@ -27,6 +27,7 @@ pipeline {
                 sh 'pelias prepare all'
                 sh 'pelias import all || exit 0'
                 sh "pelias compose run pelias-gtfs"
+                sh 'sleep 10 && pelias elastic stop'
                 sh "cp Dockerfile.* /pelias-data/"
                 sh "cp elasticsearch.yml /pelias-data/"
                 sh 'cp docker-pelias.json /pelias-data/docker-pelias.json'
