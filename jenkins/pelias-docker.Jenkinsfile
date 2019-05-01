@@ -39,7 +39,6 @@ pipeline {
             steps {
               dir("projects/estonia") {
                 sh 'cp Dockerignore.elasticsearch /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-elastic:latest -f Dockerfile.elasticsearch .'
-                sh 'cp Dockerignore.pelias-api /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-api:latest -f Dockerfile.pelias-api .'
                 sh 'cp Dockerignore.interpolation /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-interpolation:latest -f Dockerfile.interpolation .'
                 sh 'cp Dockerignore.pip /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-pip:latest -f Dockerfile.pip .'
                 sh 'cp Dockerignore.placeholder /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-placeholder:latest -f Dockerfile.placeholder .'
@@ -50,7 +49,6 @@ pipeline {
         stage('Docker Push images') {
             steps {
                 sh 'docker push peatusee.azurecr.io/pelias-elastic:latest'
-                sh 'docker push peatusee.azurecr.io/pelias-api:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-interpolation:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-pip:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-placeholder:latest'
@@ -64,7 +62,6 @@ pipeline {
               sh 'ssh azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com "curl  -H \'Content-Type: application/json\' -X POST http://127.0.0.1:80/service/marathon/v2/apps/pelias-placeholder/restart"'
               sh 'ssh azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com "curl  -H \'Content-Type: application/json\' -X POST http://127.0.0.1:80/service/marathon/v2/apps/pelias-libpostal/restart"'
               sh 'ssh azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com "curl  -H \'Content-Type: application/json\' -X POST http://127.0.0.1:80/service/marathon/v2/apps/pelias-interpolation/restart"'
-              sh 'ssh azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com "curl  -H \'Content-Type: application/json\' -X POST http://127.0.0.1:80/service/marathon/v2/apps/pelias-api/restart"'
             }
         }
     }
