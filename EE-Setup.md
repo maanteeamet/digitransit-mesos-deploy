@@ -355,6 +355,15 @@ Log into mesos master and try to ping jenkins internal ip (172.16.1.4)
 
 Follow [https://github.com/maanteeamet/digitransit-mesos-deploy/blob/master/jenkins/centos_install.txt](https://github.com/maanteeamet/digitransit-mesos-deploy/blob/master/jenkins/centos_install.txt) for configuring Jenkins server
 
+Create docker.tar.gz in wwwroot
+
+log into jenkins server
+```bash
+sudo su -
+cd ~jenkins && tar czvf /var/www/html/docker.tar.gz .docker
+exit
+```
+
 ##### Configure jenkins user access to mesos cluster
 
 **!NB!** TODO: in this section, correct names for your installation need to substituded
