@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/hsl-map-server.git']]])
+              checkout([$class: 'GitSCM', branches: [[name: 'b8c973943dc27884c3c532455182cf776c5c6341']], userRemoteConfigs: [[url: 'https://github.com/dolmit/hsl-map-server.git']]])
             }
         }
         stage('Fetch tiles') {
