@@ -8,8 +8,10 @@ pipeline {
     stages {
         stage('config') {
             steps {
-                if(fileExists('mosquitto-server/config/passwd')) {
-                    sh 'rm -rf mosquitto-server/config/passwd'
+                script {
+                    if(fileExists('mosquitto-server/config/passwd')) {
+                        sh 'rm -rf mosquitto-server/config/passwd'
+                    }
                 }
                 writeFile file: "mosquitto-server/config/passwd", text: "publisher:sHalLnoTpaSS"
                 sh 'mosquitto_passwd -U mosquitto-server/config/passwd'
