@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Docker Build image') {
             steps {
-              sh "docker build -e MQTTCLIENTPASS=\"${env.JEN_MQTTCLIENTPASS}\" --tag=peatusee.azurecr.io/rt-estonia-vehicles-service:latest ."
+              sh "docker build --tag=peatusee.azurecr.io/rt-estonia-vehicles-service:latest ."
             }
         }
         stage('Docker Push image') {
