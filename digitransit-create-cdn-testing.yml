@@ -1,0 +1,9 @@
+- hosts: localhost
+  roles:
+     - {role: digitransit-azure-cdn}
+  vars:
+     environment_type: TESTING
+     project_name: peatusee
+     project: peatusee
+     origin_host: api.testing.peatus.ee
+     origin_header: api.testing.peatus.ee
