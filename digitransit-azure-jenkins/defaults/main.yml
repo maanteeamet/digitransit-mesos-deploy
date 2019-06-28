@@ -1,0 +1,19 @@
+---
+# defaults file for digitransit-azure-jenkins
+project_name: peatusee
+#What type of environment
+
+#the username defaults to admin recommend to change 
+#VM name
+vmname: jenkins
+
+#Azure resource group name
+resource_group_name: "{{project_name}}-{{environment_type}}-jenkins-RG"
+
+#Vnet name
+vnetname: "${{project_name}}-{{environment_type}}-jenkins-vnet"
+#DNS prefix this has to be unique on azure or cluster creation will fail
+#which azure region
+azure_region: westeurope
+
+

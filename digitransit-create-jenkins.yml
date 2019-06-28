@@ -1,0 +1,9 @@
+- hosts: localhost
+  roles:
+     - {role: digitransit-azure-jenkins }
+  vars:
+     environment_type: TESTING
+     project_name: peatusee
+     project: peatusee     
+     ssh_keys: id_rsa_testing.pub
+     admin_user: azureuser

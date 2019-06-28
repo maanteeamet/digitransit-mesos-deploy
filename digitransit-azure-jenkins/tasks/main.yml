@@ -1,0 +1,26 @@
+---
+# tasks file for digitransit-azure-acs
+
+- name: create AZURE resource group
+  shell: "az group create 
+         --name {{resource_group_name}} 
+         --location {{azure_region}}"
+
+- name: create AZURE VNET
+  shell: "az network vnet create -g {{resource_group_name}} -n {{vnetname}} --address-prefix 172.16.1.0/24 \
+         --subnet-name default --subnet-prefix 172.16.1.0/24"
+         
+
+- name: Create Jenkins VM
+  shell: "az vm create -n {{vmname}} -g {{resource_group_name}} --image centos --vnet-name {{vnetname}} --subnet default \
+         --private-ip-address 172.16.1.4 \
+         --admin-username {{admin_user}} \
+         --size Standard_DS2_v3 \
+         --ssh-key-value {{ssh_keys}}"
+         
+- name: Open VM Port 80
+  shell: "az vm open-port -n {{vmname}} -g {{resource_group_name}} --port 80"
+  
+- name: Open VM Port 443
+  shell: "az vm open-port -n {{vmname}} -g {{resource_group_name}} --port 443"
+         
