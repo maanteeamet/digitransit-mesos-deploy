@@ -19,8 +19,8 @@
          --ssh-key-value {{ssh_keys}}"
          
 - name: Open VM Port 80
-  shell: "az vm open-port -n {{vmname}} -g {{resource_group_name}} --port 80"
+  shell: "az vm open-port -n {{vmname}} -g {{resource_group_name}} --port 80 --priority 900"
   
 - name: Open VM Port 443
-  shell: "az vm open-port -n {{vmname}} -g {{resource_group_name}} --port 443"
+  shell: "az vm open-port -n {{vmname}} -g {{resource_group_name}} --port 443 --priority 901"
          

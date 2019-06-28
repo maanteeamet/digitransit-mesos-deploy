@@ -298,15 +298,15 @@ TODO: Here is problem - vnet can be peered only if address spaces do not overlap
 
 **NB!** Custom Network with 172.16.1.0/24 subnet!
 
-TODO: Create ansible playbook for Jenkins install.
 
-Create Jenkins with ansible playbook:
+#### 1.7.1 Create Jenkins with ansible playbook:
 ```bash
 cd ~/peatus.ee/digitransit-mesos-deploy
 ansible-playbook digitransit-create-jenkins.yml -e environment_type=TESTING -e ssh_keys=~/.ssh/id_rsa_testing.pub
 ```
 
-Create Azure resources for Jenkins VM:
+
+#### 1.7.2 OR Create Azure resources for Jenkins VM:
 
 ```bash
 # set your project name
@@ -329,11 +329,12 @@ az vm open-port -g ${RESOURCEGROUP} -n jenkins --port 80
 az vm open-port -g ${RESOURCEGROUP} -n jenkins --port 443
 
 ```
-Verify you can log into jenkins VM
+
+#### Verify you can log into jenkins VM
 
 ```bash
 JENKINSIP=$(az vm list-ip-addresses --name jenkins | grep "ipAddress" | sed 's/^.*": "//g' |sed 's/",//g')
-ssh -i .ssh/id_rsa_dev azureuser@${JENKINSIP}
+ssh -i .ssh/id_rsa_testing azureuser@${JENKINSIP}
 
 ```
 
