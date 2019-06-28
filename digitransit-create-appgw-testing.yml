@@ -1,0 +1,10 @@
+- hosts: localhost
+  roles:
+     - {role: digitransit-azure-appgw}
+  vars: 
+     environment_type: TESTING
+     project_name: peatusee
+     project: peatusee
+     certfile: /home/martivo/peatus/digitransit-mesos-deploy/self_signed_ssl/test.pfx
+     certpass: fM2hkebDfcPq
+     backend_servers: "peatusee-testing-acsagents.westeurope.cloudapp.azure.com"
