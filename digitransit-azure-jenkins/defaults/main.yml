@@ -11,7 +11,7 @@ vmname: jenkins
 resource_group_name: "{{project_name}}-{{environment_type}}-jenkins-RG"
 
 #Vnet name
-vnetname: "${{project_name}}-{{environment_type}}-jenkins-vnet"
+vnetname: "{{project_name}}-{{environment_type}}-jenkins-vnet"
 #DNS prefix this has to be unique on azure or cluster creation will fail
 #which azure region
 azure_region: westeurope
