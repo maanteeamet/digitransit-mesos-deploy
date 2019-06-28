@@ -69,6 +69,8 @@ cat /var/lib/jenkins/.ssh/id_rsa.pub
 exit
 
 
+# Create docker.tar.gz in wwwroot
+sudo tar czvf /var/www/registry-key/docker.tar.gz -C ~jenkins .docker
 
 
 #NPM
