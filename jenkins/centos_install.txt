@@ -1,31 +1,32 @@
-yum -y install java-1.8.0-openjdk-devel
-curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+sudo yum -y install java-1.8.0-openjdk-devel
+sudo curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
 
-rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
-yum -y install jenkins git
-systemctl start jenkins
-systemctl enable jenkins
+sudo rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
+sudo yum -y install jenkins git
+sudo systemctl start jenkins
+sudo systemctl enable jenkins
 
 
-yum -y install httpd
-mkdir -p /var/www/registry-key
+sudo yum -y install httpd
+sudo mkdir -p /var/www/registry-key
 
 # download http config
 
 # Add apache configuration for port 80 (see below example for /etc/httpd/conf.d/jenkins.conf)
-DOMAINNAME=testing.peatus.ee; wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins.conf
+export DOMAINNAME=testing.peatus.ee; 
+sudo -E wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins.conf
 
 
 
-systemctl enable httpd
-systemctl start httpd
+sudo systemctl enable httpd
+sudo systemctl start httpd
 
 
-yum -y install epel-release.noarch
-yum  -y install certbot python2-certbot-apache
+sudo yum -y install epel-release.noarch
+sudo yum  -y install certbot python2-certbot-apache
 
 # NB you need to have server publicly responding to FQDN name to use letsencrypt ssl
-certbot --apache
+sudo certbot --apache
 
 # Add to cron and check if cert works.
 [root@jenkins azureuser]# cat /etc/cron.d/certbot 
@@ -35,63 +36,33 @@ certbot --apache
 # Set: SELINUX=permissive in /etc/selinux/config (reboot)
 
 # Add 443 configuration for httpd and restart (see below example for /etc/httpd/conf.d/jenkins-le-ssl.conf)
-
-DOMAINNAME=testing.peatus.ee; wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins_le_ssl.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins_le_ssl.conf
-
-Example httpd configuration for jenkins:
-[root@jenkins azureuser]# cat /etc/httpd/conf.d/jenkins.conf 
-<VirtualHost *:80>
-    DocumentRoot "/var/www/html/"
-    ServerName jenkins.dev.peatus.ee
-
-    <Directory "/srv/apps/jenkins/">
-        AllowOverride None
-        Require all granted
-    </Directory>
-RewriteEngine on
-RewriteCond %{SERVER_NAME} =jenkins.dev.peatus.ee
-RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
-</VirtualHost>
-[root@jenkins azureuser]# cat /etc/httpd/conf.d/jenkins-le-ssl.conf 
-<IfModule mod_ssl.c>
-<VirtualHost *:443>
-    #DocumentRoot "/var/www/html/"
-    ServerName jenkins.dev.peatus.ee
-
-SSLCertificateFile /etc/letsencrypt/live/jenkins.dev.peatus.ee/cert.pem
-SSLCertificateKeyFile /etc/letsencrypt/live/jenkins.dev.peatus.ee/privkey.pem
-Include /etc/letsencrypt/options-ssl-apache.conf
-SSLCertificateChainFile /etc/letsencrypt/live/jenkins.dev.peatus.ee/chain.pem
+export DOMAINNAME=testing.peatus.ee; 
+sudo -E wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins_le_ssl.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins_le_ssl.conf
 
 
-    ProxyPreserveHost On
-    ProxyRequests Off
-    AllowEncodedSlashes NoDecode
-    ProxyPass / http://127.0.0.1:8080/ nocanon
-    ProxyPassReverse / http://127.0.0.1:8080/
-    ProxyPassReverse / https://jenkins.dev.peatus.ee/
+#Install docker.
+#Follow: https://docs.docker.com/install/linux/docker-ce/centos/
 
-    <Proxy http://127.0.0.1:8080*>
-        Order deny,allow
-        Allow from all
-    </Proxy>
+sudo yum install -y yum-utils \
+  device-mapper-persistent-data \
+  lvm2
 
-</VirtualHost>
-</IfModule>
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
 
+sudo yum install -y docker-ce docker-ce-cli containerd.io
 
-
+sudo systemctl start docker
+# sudo docker run hello-world
 
 
-Install docker.
-Follow: https://docs.docker.com/install/linux/docker-ce/centos/
-
-Add jenkins to docker group
-gpasswd -a jenkins docker
+# Add jenkins to docker group
+sudo gpasswd -a jenkins docker
 
 
-
-su - jenkins -s /bin/bash
+# create docker creds
+sudo su - jenkins -s /bin/bash
 docker login --username=peatusee peatusee.azurecr.io
 ssh-keygen
 cat /var/lib/jenkins/.ssh/id_rsa.pub
@@ -101,7 +72,7 @@ exit
 
 
 #NPM
-curl -sL https://rpm.nodesource.com/setup_10.x | bash -
-yum remove -y nodejs npm
-yum install -y nodejs
+sudo curl -sL https://rpm.nodesource.com/setup_10.x | bash -
+sudo yum remove -y nodejs npm
+sudo yum install -y nodejs
 
