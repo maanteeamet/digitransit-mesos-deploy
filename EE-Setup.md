@@ -169,6 +169,7 @@ Create DNS Zone for your application in Azure
 
 TODO: Create ansible playbook for this.
 
+
 ### 1.4 Create Azure Container Registry
 
 **NB!** This service is shared between environments.  
@@ -194,6 +195,9 @@ else echo "ACS Name is Taken"; fi;
 
 Replace project name in deployment files. 
 
+**NB!** replacing project name is necessary if you decide to use new ACR, if you use existing one, set project 
+name to to existing ACR name (default peatusee from peatusee.azurecr.io ).
+
 ```bash
 PROJECTNAME=peatustest
 cd ~/peatus.ee/digitransit-mesos-deploy
@@ -214,6 +218,7 @@ az acr credential show -n ${PROJECTNAME} --query passwords[0].value
 TODO: Create docker secrets file  
 TODO: Update group_vars/all/encrypted.yml docker secrets values
 
+
 ### 1.5 Create ACS cluster
 
 
@@ -233,6 +238,23 @@ REGION=westeurope
 
 ssh -i .ssh/id_rsa_dev azureuser@${PROJECTNAME}-${ENVIRONMENT}-acsmgmt.${REGION}.cloudapp.azure.com
 ```
+
+
+#### ??? 1.5.1 Create storage account to hold docker secrets in compressed form
+
+This is needed because you cannot peer vnets - ACS does not allow to specify VNET address space during deployment. 
+
+AND
+
+Mesos DCOS open does not allow any kind of secrets to be used thus forcing custom hack to be used.
+
+* create azure storage account, general purpose
+* create share in files
+* copy docker.tar.gz to share
+* generate sas for file
+
+
+
 
 
 ### 1.6 Create Azure AppGW
@@ -310,6 +332,10 @@ ssh -i .ssh/id_rsa_dev azureuser@${JENKINSIP}
 ```
 
 #### Peer jenkins-CI and dcos-vnet-xxx vnets
+
+NB! this is only required to download docker secrets to mesos nodes securely.
+Since you cannot configure AZ ACS VNETs freely, this solution does not work with multiple ACS clusters and one jenkins VNET - 
+VNET address spaces will conflict.
 
 
 ##### Peer Using Azure CLI
@@ -408,6 +434,9 @@ Then you should be able to create containers.
 ```bash
 ansible-playbook digitransit-manage-containers.yml --tags deploy --extra-vars "environment_type=DEV"
 ```
+
+**This only again works if you CAN connect VNETs.**
+**separate JENKINS for testing environment seems to be fastest way to deploy this without chaning toom much**
 
 Setup new maratchon, use for example the dev setup:
 
