@@ -393,6 +393,12 @@ Log into mesos master and try to ping jenkins internal ip (172.16.1.4)
 
 ##### Configure jenkins installation
 
+Register jenkins FQDN in DNS for certbot, for example
+
+jenkins.dev.peatus.ee
+
+
+
 Follow [https://github.com/maanteeamet/digitransit-mesos-deploy/blob/master/jenkins/centos_install.txt](https://github.com/maanteeamet/digitransit-mesos-deploy/blob/master/jenkins/centos_install.txt) for configuring Jenkins server
 
 Create docker.tar.gz in wwwroot

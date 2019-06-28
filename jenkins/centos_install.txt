@@ -8,24 +8,35 @@ systemctl enable jenkins
 
 
 yum -y install httpd
-Add apache configuration for port 80 (see below example for /etc/httpd/conf.d/jenkins.conf)
+mkdir -p /var/www/registry-key
+
+# download http config
+
+# Add apache configuration for port 80 (see below example for /etc/httpd/conf.d/jenkins.conf)
+DOMAINNAME=testing.peatus.ee; wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins.conf
+
+
+
 systemctl enable httpd
 systemctl start httpd
 
 
 yum -y install epel-release.noarch
 yum  -y install certbot python2-certbot-apache
+
+# NB you need to have server publicly responding to FQDN name to use letsencrypt ssl
 certbot --apache
 
-Add to cron and check if cert works.
+# Add to cron and check if cert works.
 [root@jenkins azureuser]# cat /etc/cron.d/certbot 
 0 0,12 * * * python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew 
 
 
-Set: SELINUX=permissive in /etc/selinux/config (reboot)
+# Set: SELINUX=permissive in /etc/selinux/config (reboot)
 
-Add 443 configuration for httpd and restart (see below example for /etc/httpd/conf.d/jenkins-le-ssl.conf)
+# Add 443 configuration for httpd and restart (see below example for /etc/httpd/conf.d/jenkins-le-ssl.conf)
 
+DOMAINNAME=testing.peatus.ee; wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins_le_ssl.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins_le_ssl.conf
 
 Example httpd configuration for jenkins:
 [root@jenkins azureuser]# cat /etc/httpd/conf.d/jenkins.conf 
