@@ -15,7 +15,7 @@
   shell: "az vm create -n {{vmname}} -g {{resource_group_name}} --image centos --vnet-name {{vnetname}} --subnet default \
          --private-ip-address 172.16.1.4 \
          --admin-username {{admin_user}} \
-         --size Standard_DS2_v3 \
+         --size Standard_D2s_v3 \
          --ssh-key-value {{ssh_keys}}"
          
 - name: Open VM Port 80

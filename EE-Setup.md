@@ -300,6 +300,12 @@ TODO: Here is problem - vnet can be peered only if address spaces do not overlap
 
 TODO: Create ansible playbook for Jenkins install.
 
+Create Jenkins with ansible playbook:
+```bash
+cd ~/peatus.ee/digitransit-mesos-deploy
+ansible-playbook digitransit-create-jenkins.yml -e environment_type=TESTING -e ssh_keys=~/.ssh/id_rsa_testing.pub
+```
+
 Create Azure resources for Jenkins VM:
 
 ```bash
