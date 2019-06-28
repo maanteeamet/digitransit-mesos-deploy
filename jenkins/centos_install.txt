@@ -1,20 +1,20 @@
-yum install java-1.8.0-openjdk-devel
+yum -y install java-1.8.0-openjdk-devel
 curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
 
 rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
-yum install jenkins git
+yum -y install jenkins git
 systemctl start jenkins
 systemctl enable jenkins
 
 
-yum install httpd
+yum -y install httpd
 Add apache configuration for port 80 (see below example for /etc/httpd/conf.d/jenkins.conf)
 systemctl enable httpd
 systemctl start httpd
 
 
-yum install epel-release.noarch
-yum install certbot python2-certbot-apache
+yum -y install epel-release.noarch
+yum  -y install certbot python2-certbot-apache
 certbot --apache
 
 Add to cron and check if cert works.

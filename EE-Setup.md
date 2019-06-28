@@ -291,12 +291,7 @@ ansible-playbook digitransit-create-appgw-dev.yml \
 
 ### 1.7 Install Jenkins server
 
-**NB! Caution** This server is shared between environments so this needs to be created only once per project. 
-TODO: Here is problem - vnet can be peered only if address spaces do not overlap. Might either
-* Have a jenkins per environment
-* Change way docker secrets are distributed for jenkins runtime (currently downloading from jenkins vm)
-
-**NB!** Custom Network with 172.16.1.0/24 subnet!
+We are currently installing one Jenkins per cluster - cannot use VNET peering otherwise.
 
 
 #### 1.7.1 Create Jenkins with ansible playbook:
@@ -330,8 +325,20 @@ az vm open-port -g ${RESOURCEGROUP} -n jenkins --port 443
 
 ```
 
+#### Give DNS name for Jenkins machine.
+
+Use Portal for now. 
+
+I gave name 
+
+**peatusee-jenkins-testing.westeurope.cloudapp.azure.com**
+
+for TESTING environment
+
 #### Verify you can log into jenkins VM
 
+
+Deprecated - wont work with multiple machines with same name
 ```bash
 JENKINSIP=$(az vm list-ip-addresses --name jenkins | grep "ipAddress" | sed 's/^.*": "//g' |sed 's/",//g')
 ssh -i .ssh/id_rsa_testing azureuser@${JENKINSIP}
