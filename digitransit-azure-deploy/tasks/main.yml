@@ -11,6 +11,12 @@
      - deploy
 
 - set_fact:
+    dcos_uri: "http://localhost:5636/marathon/v2"
+  when: environment_type == "TESTING"
+  tags:
+     - deploy
+
+- set_fact:
     dcos_uri: "http://localhost:5536/marathon/v2"
   when: environment_type == "PROD"
   tags:

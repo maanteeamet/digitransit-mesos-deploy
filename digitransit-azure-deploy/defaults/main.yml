@@ -56,7 +56,6 @@ container:
   config: "pelias-data-container-{{ environment_type | lower }}"
 
 
-
 dev_container:
 
 - name: "otp-data-builder-dev"

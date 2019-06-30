@@ -72,3 +72,13 @@ Verify you can ssh to mesos master agent node
 ssh -i .ssh/id_rsa_testing azureuser@${PROJECTNAME}-${ENVIRONMENT}-acsmgmt.${REGION}.cloudapp.azure.com
 
 ```
+
+
+## Copy deployment playbook files from dev to testing and replace values
+
+```bash
+cd ~/peatus.ee/digitransit-mesos-deploy/digitransit-azure-deploy/files
+for i in *-dev.json ; do echo $i; name=`echo $i | sed 's/-dev.json/-testing.json/g;'`; echo $name ; cp $i $name; done 
+for i in *-testing.json; do sed -i.bak 's/dev.peatus.ee/testing.peatus.ee/g' $i; done 
+for i in *-testing.json; do sed -i.bak 's/"peatusee.azurecr.io\/\([^:"]*\)\+\(:[^"]\+\)*"/peatusee.azurecr.io\/\1:testing"/g' $i ; done
+```

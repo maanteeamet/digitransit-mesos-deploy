@@ -482,39 +482,27 @@ Before launching containers into Mesos, create SSH link to master: (get the host
 
 Log in to admin station.
 
+Choose redirection port based on **environment_type** value (this is specified port in ansible playbook):
+
+| Environment | environment_type | Port 
+--- | --- | ---
+Development | DEV | 5436
+Testing | TESTING | 5636
+Production | PROD | 5536
+
+Example for development environment variable
 ```bash
 ssh -i ~/.ssh/id_rsa_dev -L 5436:localhost:80 -f -N azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com
 ```
 
-Then you should be able to create containers.
+Then you should be able to create containers. Select right environment_type for you: **DEV | TESTING | PROD**
 ```bash
 ansible-playbook digitransit-manage-containers.yml --tags deploy --extra-vars "environment_type=DEV"
 ```
 
-**This only again works if you CAN connect VNETs.**
-**separate JENKINS for testing environment seems to be fastest way to deploy this without chaning toom much**
-
-Setup new maratchon, use for example the dev setup:
-
-Create http/80TCP vritual host first and use certbot to create SSL for it.
-
-/etc/httpd/conf.d/dev-marathon.conf
-
-For certificates use "certbot --apache"
 
 
-When SSL setup is done for you, use the 
-
-/etc/httpd/conf.d/dev-marathon-le-ssl.conf file for example.
-
-For http auth use "htpasswd -c /etc/httpd/dev-marathon.htpasswd mntadmin"
-
-Add DNS records to your DNS zone in azure to point to jenkins - see existing examples.
-
-Go to https://marathon.dev.peatus.ee - 
-
-
-Setup SSL certificates for APPGW - 
+### Setup SSL certificates for APPGW - 
 Select APPGW for your env in azure portal.
 Select Listeners
 Select HTTPS Listener, click "Renew or edit selected certificate" and follow instructions.
