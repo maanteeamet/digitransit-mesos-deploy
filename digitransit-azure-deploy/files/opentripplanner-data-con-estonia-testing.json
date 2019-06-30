@@ -1,0 +1,86 @@
+{
+  "uris":  [
+      "http://172.16.1.4/docker.tar.gz"
+  ],
+  "acceptedResourceRoles": null,
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": null,
+  "constraints": [
+        [
+            "hostname",
+            "UNIQUE"
+        ]
+    ],
+  "container": {
+      "docker": {
+          "forcePullImage": true,
+          "image": "peatusee.azurecr.io/opentripplanner-data-container-estonia",
+          "network": "BRIDGE",
+          "parameters": [
+              {
+                  "key": "net",
+                  "value": "host"
+              },
+              {
+                  "key": "name",
+                  "value": "opentripplanner-data-con-estonia"
+              }
+          ],
+          "portMappings": [
+              {
+                  "containerPort": 8080,
+                  "hostPort": 0,
+                  "labels": {
+                      "VIP_0": "/opentripplanner-data-con-estonia:8080"
+                  },
+                  "protocol": "tcp",
+                  "servicePort": 10020
+              }
+          ],
+          "privileged": false
+      },
+      "type": "DOCKER",
+      "volumes": []
+  },
+  "cpus": 0.1,
+  "dependencies": [],
+  "disk": 0,
+  "env": {},
+  "gpus": 0,
+  "healthChecks": [
+      {
+          "gracePeriodSeconds": 300,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 5,
+          "path": "/version.txt",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+      }
+  ],
+  "id": "/opentripplanner-data-con-estonia",
+  "instances": 1,
+  "labels": {
+      "update": "auto"
+  },
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 150,
+  "portDefinitions": [
+      {
+          "labels": {},
+          "port": 10020,
+          "protocol": "tcp"
+      }
+  ],
+  "ports": [
+      10020
+  ],
+  "readinessChecks": [],
+  "taskKillGracePeriodSeconds": null,
+  "upgradeStrategy": {
+      "maximumOverCapacity": 1,
+      "minimumHealthCapacity": 0
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "uris":  [
+      "http://172.16.1.4/docker.tar.gz"
+  ],
+  "acceptedResourceRoles": null,
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": null,
+  "constraints": [
+        [
+            "hostname",
+            "UNIQUE"
+        ]
+    ],
+  "container": {
+      "docker": {
+          "forcePullImage": true,
+          "image": "peatusee.azurecr.io/pelias-placeholder",
+          "network": "BRIDGE",
+          "parameters": [
+              {
+                  "key": "name",
+                  "value": "pelias-placeholder"
+              }
+          ],
+          "portMappings": [
+              {
+                  "containerPort": 4100,
+                  "hostPort": 0,
+                  "labels": {
+                      "VIP_0": "/pelias-placeholder:4100"
+                  },
+                  "protocol": "tcp",
+                  "servicePort": 10033
+              }
+          ],
+          "privileged": false
+      },
+      "type": "DOCKER",
+      "volumes": []
+  },
+  "cpus": 0.5,
+  "dependencies": [],
+  "disk": 0,
+  "env": {
+      "HOST": "0.0.0.0",
+      "PORT": "4100"
+  },
+  "gpus": 0,
+  "healthChecks": [
+      {
+          "gracePeriodSeconds": 120,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 3,
+          "path": "/parser/search?text=viru",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+      }
+  ],
+  "id": "/pelias-placeholder",
+  "instances": 1,
+  "labels": {
+      "update": "auto"
+  },
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 1024,
+  "portDefinitions": [
+      {
+          "labels": {},
+          "port": 10033,
+          "protocol": "tcp"
+      }
+  ],
+  "ports": [
+      10033
+  ],
+  "readinessChecks": [],
+  "taskKillGracePeriodSeconds": null,
+  "upgradeStrategy": {
+      "maximumOverCapacity": 1,
+      "minimumHealthCapacity": 0
+  }
+}

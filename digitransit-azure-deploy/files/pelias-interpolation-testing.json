@@ -1,0 +1,85 @@
+{
+  "uris":  [
+      "http://172.16.1.4/docker.tar.gz"
+  ],
+  "acceptedResourceRoles": null,
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": null,
+  "constraints": [
+        [
+            "hostname",
+            "UNIQUE"
+        ]
+    ],
+  "container": {
+      "docker": {
+          "forcePullImage": true,
+          "image": "peatusee.azurecr.io/pelias-interpolation",
+          "network": "BRIDGE",
+          "parameters": [
+              {
+                  "key": "name",
+                  "value": "pelias-interpolation"
+              }
+          ],
+          "portMappings": [
+              {
+                  "containerPort": 4300,
+                  "hostPort": 0,
+                  "labels": {
+                      "VIP_0": "/pelias-interpolation:4300"
+                  },
+                  "protocol": "tcp",
+                  "servicePort": 10038
+              }
+          ],
+          "privileged": false
+      },
+      "type": "DOCKER",
+      "volumes": []
+  },
+  "cpus": 0.5,
+  "dependencies": [],
+  "disk": 0,
+  "env": {
+      "HOST": "0.0.0.0",
+      "PORT": "4300"
+  },
+  "gpus": 0,
+  "healthChecks": [
+      {
+          "gracePeriodSeconds": 300,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 3,
+          "path": "/search/geojson?lat=58.671392&lon=25.54665&number=1&street=viru",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+      }
+  ],
+  "id": "/pelias-interpolation",
+  "instances": 1,
+  "labels": {
+      "update": "auto"
+  },
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 4096,
+  "portDefinitions": [
+      {
+          "labels": {},
+          "port": 10038,
+          "protocol": "tcp"
+      }
+  ],
+  "ports": [
+      10038
+  ],
+  "readinessChecks": [],
+  "taskKillGracePeriodSeconds": null,
+  "upgradeStrategy": {
+      "maximumOverCapacity": 1,
+      "minimumHealthCapacity": 0
+  }
+}

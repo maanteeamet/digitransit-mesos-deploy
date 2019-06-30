@@ -1,0 +1,90 @@
+{
+  "uris":  [
+      "http://172.16.1.4/docker.tar.gz"
+  ],
+  "acceptedResourceRoles": null,
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": null,
+  "constraints": [
+        [
+            "hostname",
+            "UNIQUE"
+        ]
+    ],
+  "container": {
+      "docker": {
+          "forcePullImage": true,
+          "image": "peatusee.azurecr.io/hsl-map-server:latest",
+          "network": "BRIDGE",
+          "parameters": [
+              {
+                  "key": "net",
+                  "value": "host"
+              }
+          ],
+          "portMappings": [
+              {
+                  "containerPort": 8080,
+                  "hostPort": 0,
+                  "labels": {
+                      "VIP_0": "/hsl-map-server:8080"
+                  },
+                  "name": "8080",
+                  "protocol": "tcp",
+                  "servicePort": 10018
+              }
+          ],
+          "privileged": false
+      },
+      "type": "DOCKER",
+      "volumes": []
+  },
+  "cpus": 0.2,
+  "dependencies": [],
+  "disk": 0,
+  "env": {
+      "FONTSTACK_PASSWORD": "",
+      "ESTONIA_OTP_URL": "opentripplanner-estonia:8080/otp/routers/estonia/index/graphql",
+      "NODE_OPTS": "--max_old_space_size=2048 --optimize_for_size --max_executable_size=2048 --stack_size=2048 --harmony",
+      "MAPSERVER_URL": "hsl-map-server:8080/map/v1/"
+  },
+  "gpus": 0,
+  "healthChecks": [
+      {
+          "gracePeriodSeconds": 300,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 10,
+          "path": "/map/v1/hsl-map/index.json",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+      }
+  ],
+  "id": "/hsl-map-server",
+  "instances": 1,
+  "labels": {
+      "restart-after-services": "/opentripplanner-estonia",
+      "restart-delay": "5",
+      "update": "auto"
+  },
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 4096,
+  "portDefinitions": [
+      {
+          "labels": {},
+          "port": 10018,
+          "protocol": "tcp"
+      }
+  ],
+  "ports": [
+      10018
+  ],
+  "readinessChecks": [],
+  "taskKillGracePeriodSeconds": null,
+  "upgradeStrategy": {
+      "maximumOverCapacity": 1,
+      "minimumHealthCapacity": 0
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "uris":  [
+      "http://172.16.1.4/docker.tar.gz"
+  ],
+  "acceptedResourceRoles": null,
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": null,
+  "constraints": [
+        [
+            "hostname",
+            "UNIQUE"
+        ]
+    ],
+  "container": {
+      "docker": {
+          "forcePullImage": true,
+          "image": "peatusee.azurecr.io/pelias-libpostal",
+          "network": "BRIDGE",
+          "parameters": [
+              {
+                  "key": "name",
+                  "value": "pelias-libpostal"
+              }
+          ],
+          "portMappings": [
+              {
+                  "containerPort": 4400,
+                  "hostPort": 0,
+                  "labels": {
+                      "VIP_0": "/pelias-libpostal:4400"
+                  },
+                  "protocol": "tcp",
+                  "servicePort": 10036
+              }
+          ],
+          "privileged": false
+      },
+      "type": "DOCKER",
+      "volumes": []
+  },
+  "cpus": 0.5,
+  "dependencies": [],
+  "disk": 0,
+  "env": {
+      "HOST": "0.0.0.0",
+      "PORT": "4400"
+  },
+  "gpus": 0,
+  "healthChecks": [
+      {
+          "gracePeriodSeconds": 120,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 3,
+          "path": "/parse?address=475+Sansome+St+San+Francisco+CA",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+      }
+  ],
+  "id": "/pelias-libpostal",
+  "instances": 1,
+  "labels": {
+      "update": "auto"
+  },
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 4096,
+  "portDefinitions": [
+      {
+          "labels": {},
+          "port": 10036,
+          "protocol": "tcp"
+      }
+  ],
+  "ports": [
+      10036
+  ],
+  "readinessChecks": [],
+  "taskKillGracePeriodSeconds": null,
+  "upgradeStrategy": {
+      "maximumOverCapacity": 1,
+      "minimumHealthCapacity": 0
+  }
+}
