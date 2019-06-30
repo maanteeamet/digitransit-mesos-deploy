@@ -10,7 +10,7 @@
     "container": {
         "docker": {
             "forcePullImage": true,
-            "image": "peatusee.azurecr.io/otp-data-builder:next",
+            "image": peatusee.azurecr.io/otp-data-builder:testing",
             "network": "HOST",
             "parameters": [],
             "portMappings": null,

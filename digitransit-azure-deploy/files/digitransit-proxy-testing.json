@@ -12,7 +12,7 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "peatusee.azurecr.io/digitransit-proxy",
+          "image": peatusee.azurecr.io/digitransit-proxy:testing",
           "network": "BRIDGE",
           "parameters": [],
           "portMappings": [

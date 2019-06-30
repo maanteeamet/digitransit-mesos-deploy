@@ -15,7 +15,7 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "peatusee.azurecr.io/pelias-interpolation",
+          "image": peatusee.azurecr.io/pelias-interpolation:testing",
           "network": "BRIDGE",
           "parameters": [
               {

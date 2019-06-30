@@ -43,7 +43,7 @@
   "dependencies": [],
   "disk": 0,
   "env": {
-      "URL_PREFIX": "http://api.dev.peatus.ee"
+      "URL_PREFIX": "http://api.testing.peatus.ee"
   },
   "gpus": 0,
   "healthChecks": [

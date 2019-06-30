@@ -15,7 +15,7 @@
     "container": {
         "docker": {
             "forcePullImage": true,
-            "image": "peatusee.azurecr.io/digitransit-ui",
+            "image": peatusee.azurecr.io/digitransit-ui:testing",
             "network": "BRIDGE",
             "parameters": [
                 {
@@ -43,12 +43,12 @@
     "dependencies": [],
     "disk": 0,
     "env": {
-        "API_URL": "https://api.dev.peatus.ee",
-        "ASSET_URL": "https://api.dev.peatus.ee/ui/v1/estonia",
+        "API_URL": "https://api.testing.peatus.ee",
+        "ASSET_URL": "https://api.testing.peatus.ee/ui/v1/estonia",
         "CONFIG": "estonia",
-        "MAP_URL": "https://api.dev.peatus.ee",
-        "OTP_URL": "https://api.dev.peatus.ee/routing/v1/routers/estonia/",
-        "GEOCODING_BASE_URL": "https://api.dev.peatus.ee/geocoding/v1",
+        "MAP_URL": "https://api.testing.peatus.ee",
+        "OTP_URL": "https://api.testing.peatus.ee/routing/v1/routers/estonia/",
+        "GEOCODING_BASE_URL": "https://api.testing.peatus.ee/geocoding/v1",
         "NODE_OPTS": "--max_old_space_size=600",
         "PIWIK_ADDRESS": "",
         "PIWIK_ID": "",

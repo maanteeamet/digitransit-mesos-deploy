@@ -47,7 +47,7 @@
     "dependencies": [],
     "disk": 0,
     "env": {
-        "ROUTER_ZIP_URL": "http://api.dev.peatus.ee/routing-data/v2/estonia/router-estonia.zip"
+        "ROUTER_ZIP_URL": "http://api.testing.peatus.ee/routing-data/v2/estonia/router-estonia.zip"
     },
     "gpus": 0,
     "healthChecks": [

@@ -15,7 +15,7 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "peatusee.azurecr.io/pelias-libpostal",
+          "image": peatusee.azurecr.io/pelias-libpostal:testing",
           "network": "BRIDGE",
           "parameters": [
               {
