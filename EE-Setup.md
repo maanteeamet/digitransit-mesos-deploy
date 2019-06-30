@@ -439,7 +439,7 @@ When logged into the mesos master, you can also check if you can download the do
 
 In Azure DNS, register alias marathon which points to jenkins machine
 
-In jenkins machine
+In **Jenkins** machine:
 
 1. Set up marathon port 80 setting
 
@@ -450,10 +450,21 @@ sudo systemctl restart httpd
 ```
 
 2. Run certbot installation
+
+```bash
+sudo certbot --apache
+```
+**NB!** - certbot should already have renewing cron task scheduled but if required, it can be set up by:
+
+```bash
+sudo -- sh -c 'echo "0 0,12 * * * python -c '"'"'import random; import time; time.sleep(random.random() * 3600)'"'"' && certbot renew" > /etc/cron.d/certbot'
+cat /etc/cron.d/certbot
+```
+
 3. Add http user
 
 ```bash
-htpasswd -c /etc/httpd/marathon.htpasswd mntadmin
+sudo htpasswd -c /etc/httpd/marathon.htpasswd mntadmin
 ```
 4. Set up proxy pass to DCOS master node
 
