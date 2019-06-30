@@ -80,5 +80,55 @@ ssh -i .ssh/id_rsa_testing azureuser@${PROJECTNAME}-${ENVIRONMENT}-acsmgmt.${REG
 cd ~/peatus.ee/digitransit-mesos-deploy/digitransit-azure-deploy/files
 for i in *-dev.json ; do echo $i; name=`echo $i | sed 's/-dev.json/-testing.json/g;'`; echo $name ; cp $i $name; done 
 for i in *-testing.json; do sed -i.bak 's/dev.peatus.ee/testing.peatus.ee/g' $i; done 
-for i in *-testing.json; do sed -i.bak 's/"peatusee.azurecr.io\/\([^:"]*\)\+\(:[^"]\+\)*"/peatusee.azurecr.io\/\1:testing"/g' $i ; done
+for i in *-testing.json; do sed -i.bak 's/"peatusee.azurecr.io\/\([^:"]*\)\+\(:[^"]\+\)*"/"peatusee.azurecr.io\/\1:testing"/g' $i ; done
 ```
+
+## Get list of docker images in dev usage
+
+```bash
+grep '"image":' *-dev.json | grep azurecr.io | sed 's/^.*"image": "\(.*\)\+".*$/\1/g' | sort |uniq
+```
+
+## Get list of docker images in testing usage
+
+```bash
+grep '"image":' *testing.json | grep azurecr.io | sed 's/^.*"image": "\(.*\)\+".*$/\1/g' | sort |uniq
+```
+
+## Get docker tags to update
+
+```bash
+grep '"image":' *-dev.json | grep azurecr.io | sed 's/^.*"image": "\(.*\)\+".*$/\1/g' | sort |uniq | sed 's/^\([^:]*\)\+\(.*\)$/docker pull \0; docker tag \0 \1:testing; docker push \1:testing/g'
+
+docker pull peatusee.azurecr.io/digitransit-proxy; docker tag peatusee.azurecr.io/digitransit-proxy peatusee.azurecr.io/digitransit-proxy:testing; docker push peatusee.azurecr.io/digitransit-proxy:testing
+docker pull peatusee.azurecr.io/digitransit-ui; docker tag peatusee.azurecr.io/digitransit-ui peatusee.azurecr.io/digitransit-ui:testing; docker push peatusee.azurecr.io/digitransit-ui:testing
+docker pull peatusee.azurecr.io/hsl-map-server:latest; docker tag peatusee.azurecr.io/hsl-map-server:latest peatusee.azurecr.io/hsl-map-server:testing; docker push peatusee.azurecr.io/hsl-map-server:testing
+docker pull peatusee.azurecr.io/opentripplanner; docker tag peatusee.azurecr.io/opentripplanner peatusee.azurecr.io/opentripplanner:testing; docker push peatusee.azurecr.io/opentripplanner:testing
+docker pull peatusee.azurecr.io/opentripplanner-data-container-estonia; docker tag peatusee.azurecr.io/opentripplanner-data-container-estonia peatusee.azurecr.io/opentripplanner-data-container-estonia:testing; docker push peatusee.azurecr.io/opentripplanner-data-container-estonia:testing
+docker pull peatusee.azurecr.io/otp-data-builder; docker tag peatusee.azurecr.io/otp-data-builder peatusee.azurecr.io/otp-data-builder:testing; docker push peatusee.azurecr.io/otp-data-builder:testing
+#docker pull peatusee.azurecr.io/otp-data-builder:next; docker tag peatusee.azurecr.io/otp-data-builder:next peatusee.azurecr.io/otp-data-builder:testing; docker push peatusee.azurecr.io/otp-data-builder:testing
+#docker pull peatusee.azurecr.io/otp-data-builder:prod; docker tag peatusee.azurecr.io/otp-data-builder:prod peatusee.azurecr.io/otp-data-builder:testing; docker push peatusee.azurecr.io/otp-data-builder:testing
+docker pull peatusee.azurecr.io/pelias-api; docker tag peatusee.azurecr.io/pelias-api peatusee.azurecr.io/pelias-api:testing; docker push peatusee.azurecr.io/pelias-api:testing
+docker pull peatusee.azurecr.io/pelias-elastic; docker tag peatusee.azurecr.io/pelias-elastic peatusee.azurecr.io/pelias-elastic:testing; docker push peatusee.azurecr.io/pelias-elastic:testing
+docker pull peatusee.azurecr.io/pelias-interpolation; docker tag peatusee.azurecr.io/pelias-interpolation peatusee.azurecr.io/pelias-interpolation:testing; docker push peatusee.azurecr.io/pelias-interpolation:testing
+docker pull peatusee.azurecr.io/pelias-libpostal; docker tag peatusee.azurecr.io/pelias-libpostal peatusee.azurecr.io/pelias-libpostal:testing; docker push peatusee.azurecr.io/pelias-libpostal:testing
+docker pull peatusee.azurecr.io/pelias-pip; docker tag peatusee.azurecr.io/pelias-pip peatusee.azurecr.io/pelias-pip:testing; docker push peatusee.azurecr.io/pelias-pip:testing
+docker pull peatusee.azurecr.io/pelias-placeholder; docker tag peatusee.azurecr.io/pelias-placeholder peatusee.azurecr.io/pelias-placeholder:testing; docker push peatusee.azurecr.io/pelias-placeholder:testing
+
+
+```
+
+## Get all tags in remote registry (not tested against private ACR)
+
+https://stackoverflow.com/questions/28320134/how-to-list-all-tags-for-a-docker-image-on-a-remote-registry/39485542
+
+```bash
+image="$1"
+tags=`wget -q https://registry.hub.docker.com/v1/repositories/${image}/tags -O -  | sed -e 's/[][]//g' -e 's/"//g' -e 's/ //g' | tr '}' '\n'  | awk -F: '{print $3}'`
+```
+
+## Jenkins: getting commit id 
+
+https://issues.jenkins-ci.org/browse/JENKINS-34455
+
+commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
