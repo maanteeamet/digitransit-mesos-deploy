@@ -1,0 +1,90 @@
+{
+  "uris":  [
+      "http://172.16.1.4/docker.tar.gz"
+  ],
+    "acceptedResourceRoles": null,
+    "backoffFactor": 1.15,
+    "backoffSeconds": 1,
+    "cmd": null,
+    "constraints": [
+        [
+             "hostname",
+             "UNIQUE"
+        ]
+    ],
+    "container": {
+        "docker": {
+            "forcePullImage": true,
+            "image": "hsldevcom/raildigitraffic2gtfsrt",
+            "network": "BRIDGE",
+            "parameters": [
+                {
+                    "key": "net",
+                    "value": "host"
+                },
+                {
+                    "key": "name",
+                    "value": "raildigitraffic2gtfsrt"
+                }
+            ],
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "hostPort": 0,
+                    "labels": {
+                        "VIP_0": "/raildigitraffic2gtfsrt:8080"
+                    },
+                    "protocol": "tcp",
+                    "servicePort": 10015
+                }
+            ],
+            "privileged": false
+        },
+        "type": "DOCKER",
+        "volumes": []
+    },
+    "cpus": 0.1,
+    "dependencies": [],
+    "disk": 0,
+    "env": {
+        "ROUTER_ZIP_URL": "http://api.testing.peatus.ee/routing-data/v2/estonia/router-estonia.zip"
+    },
+    "gpus": 0,
+    "healthChecks": [
+        {
+            "gracePeriodSeconds": 1800,
+            "ignoreHttp1xx": false,
+            "intervalSeconds": 30,
+            "maxConsecutiveFailures": 5,
+            "path": "/hsl",
+            "portIndex": 0,
+            "protocol": "HTTP",
+            "timeoutSeconds": 10
+        }
+    ],
+    "id": "/raildigitraffic2gtfsrt",
+    "instances": 0,
+    "labels": {
+        "restart-after-services": "/opentripplanner-data-con-finland",
+        "restart-delay": "5",
+        "update": "auto"
+    },
+    "maxLaunchDelaySeconds": 3600,
+    "mem": 1280,
+    "portDefinitions": [
+        {
+            "labels": {},
+            "port": 10015,
+            "protocol": "tcp"
+        }
+    ],
+    "ports": [
+        10015
+    ],
+    "readinessChecks": [],
+    "taskKillGracePeriodSeconds": null,
+    "upgradeStrategy": {
+        "maximumOverCapacity": 1,
+        "minimumHealthCapacity": 0
+    }
+}

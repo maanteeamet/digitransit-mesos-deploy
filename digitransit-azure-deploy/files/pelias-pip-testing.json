@@ -1,0 +1,85 @@
+{
+  "uris":  [
+      "http://172.16.1.4/docker.tar.gz"
+  ],
+  "acceptedResourceRoles": null,
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": null,
+  "constraints": [
+        [
+            "hostname",
+            "UNIQUE"
+        ]
+    ],
+  "container": {
+      "docker": {
+          "forcePullImage": true,
+          "image": "peatusee.azurecr.io/pelias-pip:testing",
+          "network": "BRIDGE",
+          "parameters": [
+              {
+                  "key": "name",
+                  "value": "pelias-pip"
+              }
+          ],
+          "portMappings": [
+              {
+                  "containerPort": 4200,
+                  "hostPort": 0,
+                  "labels": {
+                      "VIP_0": "/pelias-pip:4200"
+                  },
+                  "protocol": "tcp",
+                  "servicePort": 10029
+              }
+          ],
+          "privileged": false
+      },
+      "type": "DOCKER",
+      "volumes": []
+  },
+  "cpus": 0.5,
+  "dependencies": [],
+  "disk": 0,
+  "env": {
+      "HOST": "0.0.0.0",
+      "PORT": "4200"
+  },
+  "gpus": 0,
+  "healthChecks": [
+      {
+          "gracePeriodSeconds": 300,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 10,
+          "maxConsecutiveFailures": 3,
+          "path": "/58.671392/25.54665",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 10
+      }
+  ],
+  "id": "/pelias-pip",
+  "instances": 1,
+  "labels": {
+      "update": "auto"
+  },
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 1024,
+  "portDefinitions": [
+      {
+          "labels": {},
+          "port": 10029,
+          "protocol": "tcp"
+      }
+  ],
+  "ports": [
+      10029
+  ],
+  "readinessChecks": [],
+  "taskKillGracePeriodSeconds": null,
+  "upgradeStrategy": {
+      "maximumOverCapacity": 1,
+      "minimumHealthCapacity": 0
+  }
+}
