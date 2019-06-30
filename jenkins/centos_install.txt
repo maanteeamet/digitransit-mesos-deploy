@@ -14,7 +14,7 @@ sudo mkdir -p /var/www/registry-key
 
 # Add apache configuration for port 80 (see below example for /etc/httpd/conf.d/jenkins.conf)
 export DOMAINNAME=testing.peatus.ee; 
-sudo -E wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins.conf
+sudo -E -- sh -c 'wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins.conf'
 
 
 

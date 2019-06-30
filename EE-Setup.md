@@ -430,8 +430,38 @@ When logged into the mesos master, you can also check if you can download the do
 
 ##### Configure access to Marathon UI through jenkins server
 
+>**NB!** This is kind of a hacky approach - not working for multi-master. Actual access should be build using App Proxy in front of master LB. 
+>
+>Marathon SSL/Basic auth access can be configured https://mesosphere.github.io/marathon/docs/ssl-basic-access-authentication.html and access could be provided by making LB public IP available to certain IP addresses 
+>for management purposes but requires then also password injection to jenkins scripts. 
+>
+>Should redesign.
 
+In Azure DNS, register alias marathon which points to jenkins machine
 
+In jenkins machine
+
+1. Set up marathon port 80 setting
+
+```bash
+export DOMAINNAME=testing.peatus.ee; 
+sudo -E -- sh -c 'wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/marathon.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/marathon.conf'
+sudo systemctl restart httpd
+```
+
+2. Run certbot installation
+3. Add http user
+
+```bash
+htpasswd -c /etc/httpd/marathon.htpasswd mntadmin
+```
+4. Set up proxy pass to DCOS master node
+
+```bash
+export DOMAINNAME=testing.peatus.ee; 
+sudo -E -- sh -c 'wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/marathon-le-ssl.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/marathon-le-ssl.conf'
+sudo systemctl restart httpd
+```
 
 ## Part 2 - Set up containers in Mesos
 
