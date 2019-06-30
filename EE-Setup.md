@@ -399,22 +399,8 @@ Log into mesos master and try to ping jenkins internal ip (172.16.1.4)
 
 ##### Configure jenkins installation
 
-Register jenkins FQDN in DNS for certbot, for example
-
-jenkins.dev.peatus.ee
-
-
-
 Follow [https://github.com/maanteeamet/digitransit-mesos-deploy/blob/master/jenkins/centos_install.txt](https://github.com/maanteeamet/digitransit-mesos-deploy/blob/master/jenkins/centos_install.txt) for configuring Jenkins server
 
-Create docker.tar.gz in wwwroot
-
-log into jenkins server
-```bash
-sudo su -
-cd ~jenkins && tar czvf /var/www/html/docker.tar.gz .docker
-exit
-```
 
 ##### Configure jenkins user access to mesos cluster
 
@@ -440,6 +426,9 @@ ssh azureuser@peatusee-dev-acsmgmt.westeurope.cloudapp.azure.com
 ```
 
 When logged into the mesos master, you can also check if you can download the docker secret with "wget -O /dev/null http://172.16.1.4/docker.tar.gz"
+
+
+##### Configure access to Marathon UI through jenkins server
 
 
 

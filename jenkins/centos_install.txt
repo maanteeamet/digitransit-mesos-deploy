@@ -26,19 +26,23 @@ sudo yum -y install epel-release.noarch
 sudo yum  -y install certbot python2-certbot-apache
 
 # NB you need to have server publicly responding to FQDN name to use letsencrypt ssl
+
+# for example create alias in DNS zone
+
 sudo certbot --apache
 
 # Add to cron and check if cert works.
-[root@jenkins azureuser]# cat /etc/cron.d/certbot 
-0 0,12 * * * python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew 
-
+# [root@jenkins azureuser]# cat /etc/cron.d/certbot 
+sudo -- sh -c 'echo "0 0,12 * * * python -c '"'"'import random; import time; time.sleep(random.random() * 3600)'"'"' && certbot renew" > /etc/cron.d/certbot'
+cat /etc/cron.d/certbot
 
 # Set: SELINUX=permissive in /etc/selinux/config (reboot)
 
 # Add 443 configuration for httpd and restart (see below example for /etc/httpd/conf.d/jenkins-le-ssl.conf)
 export DOMAINNAME=testing.peatus.ee; 
-sudo -E wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins_le_ssl.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins_le_ssl.conf
-
+sudo cp /etc/httpd/conf.d/httpd_jenkins-le-ssl.conf /etc/httpd/conf.d/httpd_jenkins-le-ssl.bak
+sudo -E -- sh -c 'wget -q "https://raw.githubusercontent.com/maanteeamet/digitransit-mesos-deploy/master/jenkins/CloudInit/httpd_jenkins_le_ssl.conf" -O - | sed "s/#DOMAINNAME#/$DOMAINNAME/g" > /etc/httpd/conf.d/httpd_jenkins-le-ssl.conf'
+sudo systemctl restart httpd
 
 #Install docker.
 #Follow: https://docs.docker.com/install/linux/docker-ce/centos/
