@@ -69,6 +69,10 @@ npm install -g azure-cli
 
 Two versions of Azure cli is required because deployment scripts have mixed dependencies
 
+### Set environment variables
+
+TODO
+
 ### SSH Keys
 
 If you have ssh keypair you wish to use, this step is not necessary.
@@ -167,6 +171,9 @@ ansible-vault encrypt group_vars/all/encrypted.yml
 
 Create DNS Zone for your application in Azure
 
+for example: 
+dev.peatus.ee
+
 TODO: Create ansible playbook for this.
 
 
@@ -238,22 +245,6 @@ REGION=westeurope
 
 ssh -i .ssh/id_rsa_dev azureuser@${PROJECTNAME}-${ENVIRONMENT}-acsmgmt.${REGION}.cloudapp.azure.com
 ```
-
-
-#### ??? 1.5.1 Create storage account to hold docker secrets in compressed form
-
-This is needed because you cannot peer vnets - ACS does not allow to specify VNET address space during deployment. 
-
-AND
-
-Mesos DCOS open does not allow any kind of secrets to be used thus forcing custom hack to be used.
-
-* create azure storage account, general purpose
-* create share in files
-* copy docker.tar.gz to share
-* generate sas for file
-
-
 
 
 
@@ -335,15 +326,30 @@ I gave name
 
 for TESTING environment
 
+Create A record jenkins.testing.peatus.ee in Azure DNS zone configured previously. Verify you can connect by name.
+
+```bash
+ssh -i .ssh/id_rsa_testing azureuser@jenkins.${ENVIRONMENT}.peatus.ee
+
+```
+
+
 #### Verify you can log into jenkins VM
 
 
-Deprecated - wont work with multiple machines with same name
 ```bash
-JENKINSIP=$(az vm list-ip-addresses --name jenkins | grep "ipAddress" | sed 's/^.*": "//g' |sed 's/",//g')
+export PROJECTNAME=peatusee
+export ENVIRONMENT=TESTING
+export REGION=westeurope
+export RESOURCEGROUP=${PROJECTNAME}-${ENVIRONMENT}-jenkins-RG
+export JENKINSIP=$(az vm list-ip-addresses --name jenkins -g ${RESOURCEGROUP} | grep "ipAddress" | sed 's/^.*": "//g' |sed 's/",//g')
 ssh -i .ssh/id_rsa_testing azureuser@${JENKINSIP}
 
 ```
+
+Alternatively use DNS name registered in previous step to connect
+
+
 
 #### Peer jenkins-CI and dcos-vnet-xxx vnets
 
