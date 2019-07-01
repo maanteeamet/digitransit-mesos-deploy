@@ -246,6 +246,13 @@ REGION=westeurope
 ssh -i .ssh/id_rsa_dev azureuser@${PROJECTNAME}-${ENVIRONMENT}-acsmgmt.${REGION}.cloudapp.azure.com
 ```
 
+### 1.5.1 Register ACS public endpoints in Azure DNS zone
+
+Add following alias records pointing to public slave Loadbalancer Frontend IP
+
+* api
+* web
+* site
 
 
 ### 1.6 Create Azure AppGW
@@ -263,6 +270,8 @@ cd ~/peatus.ee/digitransit-mesos-deploy/self_signed_ssl
 ```
 This will create self-signed certificate in that folder.
 
+#### Create APPGW
+
 Choose which environment to run and either change digitransit-create-appgw-ENVIRONMENT.yml file or
 use extra values argument for ansible-playbook.
 
@@ -276,7 +285,7 @@ To run dev environment with custom SSL certificate :
 ```bash
 cd ~/peatus.ee/digitransit-mesos-deploy
 ansible-playbook digitransit-create-appgw-dev.yml \
--e certfile=~/peatus.ee/digitransit-mesos-deployself_signed_ssl/test.pfx \
+-e certfile=~/peatus.ee/digitransit-mesos-deploy/self_signed_ssl/test.pfx \
 -e certpass=fM2hkebDfcPq
 ```
 
@@ -476,7 +485,6 @@ sudo systemctl restart httpd
 
 ## Part 2 - Set up containers in Mesos
 
-**NB!** This part here is unverified
 
 Before launching containers into Mesos, create SSH link to master: (get the hostname from azure portal - it is the masters hostname (click on dcos-master-*, get DNS name from right)
 
@@ -497,6 +505,7 @@ ssh -i ~/.ssh/id_rsa_dev -L 5436:localhost:80 -f -N azureuser@peatusee-dev-acsmg
 
 Then you should be able to create containers. Select right environment_type for you: **DEV | TESTING | PROD**
 ```bash
+cd ~/peatus.ee/digitransit-mesos-deploy
 ansible-playbook digitransit-manage-containers.yml --tags deploy --extra-vars "environment_type=DEV"
 ```
 
@@ -524,6 +533,23 @@ If for some reason you need to log in to one of the worker nodes, log into the m
 
 After first startup you might have to restart digitransit-ui and hsl-map-server. See logs for issues.
 
-## Part 3 Configure Jenkins pipelines for rebuilds
+## Part 3 - Configure Jenkins pipelines for rebuilds
 
-Todo
+
+### 3.1 Initialize Jenkins installation if not completed
+
+> This step is only required if you did not completed Jenkins initialization during Jenkins machine installation
+
+Open Jenkins web page: https://jenkins.{environment}.peatus.ee
+
+* Follow prompts, install recommended plugins and create first admin user 
+
+* Restart jenkins service  
+On Jenkins machine  
+  ```bash
+  sudo service jenkins stop
+  sudo service jenkins start
+  ```
+
+### 3.2 Configure Jenkins pipelines
+
