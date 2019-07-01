@@ -9,8 +9,7 @@ pipeline {
         stage('Git checkout') {
             steps {
               checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/digitransit-proxy.git']]])
-			  sh "git rev-parse --short HEAD > .git/commit-id"
-			  def commit_id = readFile('.git/commit-id').trim()
+			  def commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)			  
             }
         }
         stage('Docker Build image') {
