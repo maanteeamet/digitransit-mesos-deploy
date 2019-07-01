@@ -258,7 +258,7 @@ Add following alias records pointing to public slave Loadbalancer Frontend IP
 ### 1.6 Create Azure AppGW
 
 
-#### SSL certificate 
+#### 1.6.1 SSL certificate 
 
 You should have SSL certificate for application DNS domain. 
 If you have SSL certificate, put it into PFX file and store somewhere in admin server.
@@ -270,7 +270,7 @@ cd ~/peatus.ee/digitransit-mesos-deploy/self_signed_ssl
 ```
 This will create self-signed certificate in that folder.
 
-#### Create APPGW
+#### 1.6.2 Create APPGW
 
 Choose which environment to run and either change digitransit-create-appgw-ENVIRONMENT.yml file or
 use extra values argument for ansible-playbook.
@@ -288,6 +288,13 @@ ansible-playbook digitransit-create-appgw-dev.yml \
 -e certfile=~/peatus.ee/digitransit-mesos-deploy/self_signed_ssl/test.pfx \
 -e certpass=fM2hkebDfcPq
 ```
+
+#### 1.6.3 (Optional) - Replace public agent loadbalancer with APPGW
+
+This removes 1 additional step and also gives opportunity to add private front-end
+
+TODO: Steps.
+
 
 ### 1.7 Install Jenkins server
 
@@ -552,4 +559,11 @@ On Jenkins machine
   ```
 
 ### 3.2 Configure Jenkins pipelines
+
+> Depending on whether DEV, TESTING or PROD environment is configured, pipelines are different
+> * For DEV environment, pipeline pulls github repos, builds images with "latest" tag, pushes those to registry and restarts Mesos service
+> * For TESTING and PROD environments, task is to get latest (or specific) tagged container, add "testing" or "production" tag to it, push tag 
+> to registry and restart Mesos service.
+> Unfortunately, no coherent tagging/versioning is being done by repos' maintainers
+
 

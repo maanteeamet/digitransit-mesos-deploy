@@ -132,3 +132,25 @@ tags=`wget -q https://registry.hub.docker.com/v1/repositories/${image}/tags -O -
 https://issues.jenkins-ci.org/browse/JENKINS-34455
 
 commitId = sh(returnStdout: true, script: 'git rev-parse HEAD')
+
+https://github.com/jenkinsci/pipeline-examples/blob/master/pipeline-examples/gitcommit/gitcommit.groovy
+
+https://github.com/storj/complex/blob/master/Jenkinsfile
+
+
+## Jenkins: Build name setter plugin
+
+https://wiki.jenkins.io/display/JENKINS/Build+Name+Setter+Plugin
+
+## Jenkins: Git parameter plugin
+
+https://wiki.jenkins.io/display/JENKINS/Git+Parameter+Plugin
+
+## Active Choice parameters
+
+https://kublr.com/blog/how-to-use-advanced-jenkins-groovy-scripting-for-live-fetching-of-docker-images/
+
+https://lukasmestan.com/jenkins-pipeline-example-scripts/
+
+https://stackoverflow.com/questions/51923836/working-with-images-in-azure-container-registry-via-rest
+
