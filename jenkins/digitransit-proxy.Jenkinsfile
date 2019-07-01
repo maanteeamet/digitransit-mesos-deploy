@@ -9,16 +9,20 @@ pipeline {
         stage('Git checkout') {
             steps {
               checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/digitransit-proxy.git']]])
+			  sh "git rev-parse --short HEAD > .git/commit-id"
+			  def commit_id = readFile('.git/commit-id').trim()
             }
         }
         stage('Docker Build image') {
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/digitransit-proxy:latest .'
+			  sh "docker tag peatusee.azurecr.io/digitransit-proxy:latest peatusee.azurecr.io/digitransit-proxy:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Docker Push image') {
             steps {
               sh 'docker push peatusee.azurecr.io/digitransit-proxy:latest'
+			  sh "docker push peatusee.azurecr.io/digitransit-proxy:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Mesos restart container') {
