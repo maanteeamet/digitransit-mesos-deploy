@@ -8,19 +8,22 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/digitransit-proxy.git']]])
-			  script {
-				def commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)			  
-			  }
+              checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/digitransit-proxy.git']]])			  
             }
         }
-        stage('Docker Build image') {
-            steps {
+        stage('Docker Build image') {		
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
+            steps {			  
               sh 'docker build --tag=peatusee.azurecr.io/digitransit-proxy:latest .'
 			  sh "docker tag peatusee.azurecr.io/digitransit-proxy:latest peatusee.azurecr.io/digitransit-proxy:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Docker Push image') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }		
             steps {
               sh 'docker push peatusee.azurecr.io/digitransit-proxy:latest'
 			  sh "docker push peatusee.azurecr.io/digitransit-proxy:${env.BUILD_ID}-${commit_id}"
