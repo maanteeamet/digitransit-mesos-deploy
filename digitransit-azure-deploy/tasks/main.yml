@@ -144,7 +144,7 @@
          - decrypt
          - deploy
 
-  when: environment_type == 'DEV'
+  when: (environment_type == 'DEV') or (environment_type == 'TESTING')
 
 ###UPDATE OR CREATE THE CONTAINERS
 
@@ -178,7 +178,7 @@
       tags:
          - update
          - deploy
-  when: environment_type == 'DEV'
+  when: (environment_type == 'DEV') or (environment_type == 'TESTING')
 
 
 ###RE-ENCRYPT the variabls to prevent any accidents when committing changes
@@ -286,4 +286,4 @@
          - deploy
 
 
-  when: environment_type == 'DEV'
+  when: (environment_type == 'DEV') or (environment_type == 'TESTING')
