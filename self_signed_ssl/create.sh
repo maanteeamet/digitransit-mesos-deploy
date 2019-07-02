@@ -25,7 +25,7 @@ echo "Creating ${FQDN} self-signed key";
 
 # https://security.stackexchange.com/questions/74345/provide-subjectaltname-to-openssl-directly-on-the-command-line
 
-SAN="DNS:web.${FQDN};DNS:api.${FQDN};DNS:site.${FQDN};DNS:*.${FQDN}"
+SAN="DNS:web.${FQDN},DNS:api.${FQDN},DNS:site.${FQDN},DNS:*.${FQDN}"
 
 openssl genrsa -out ${FQDN}.key 1024
 #openssl req -new -key ${FQDN}.key -out ${FQDN}.csr
