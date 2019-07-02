@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/pelias-docker.git']]])
+              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/herr_bpl/pelias-docker.git']]])
             }
         }
         stage('Build map data') {
@@ -36,6 +36,9 @@ pipeline {
             }
         }
         stage('Docker Build images') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               dir("projects/estonia") {
                 sh 'cp Dockerignore.elasticsearch /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-elastic:latest -f Dockerfile.elasticsearch .'
@@ -43,16 +46,29 @@ pipeline {
                 sh 'cp Dockerignore.pip /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-pip:latest -f Dockerfile.pip .'
                 sh 'cp Dockerignore.placeholder /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-placeholder:latest -f Dockerfile.placeholder .'
                 sh 'cp Dockerignore.libpostal /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-libpostal:latest -f Dockerfile.libpostal .'
+				sh "docker tag peatusee.azurecr.io/elastic:latest peatusee.azurecr.io/elastic:${env.BUILD_ID}-${commit_id}"
+				sh "docker tag peatusee.azurecr.io/pelias-interpolation:latest peatusee.azurecr.io/pelias-interpolation:${env.BUILD_ID}-${commit_id}"
+				sh "docker tag peatusee.azurecr.io/pelias-pip:latest peatusee.azurecr.io/pelias-pip:${env.BUILD_ID}-${commit_id}"
+				sh "docker tag peatusee.azurecr.io/pelias-placeholder:latest peatusee.azurecr.io/pelias-placeholder:${env.BUILD_ID}-${commit_id}"
+				sh "docker tag peatusee.azurecr.io/pelias-libpostal:latest peatusee.azurecr.io/pelias-libpostal:${env.BUILD_ID}-${commit_id}"
               }
             }
         }
         stage('Docker Push images') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
                 sh 'docker push peatusee.azurecr.io/pelias-elastic:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-interpolation:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-pip:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-placeholder:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-libpostal:latest'
+				sh "docker push peatusee.azurecr.io/elastic:${env.BUILD_ID}-${commit_id}"
+				sh "docker push peatusee.azurecr.io/pelias-interpolation:${env.BUILD_ID}-${commit_id}"
+				sh "docker push peatusee.azurecr.io/pelias-pip:${env.BUILD_ID}-${commit_id}"
+				sh "docker push peatusee.azurecr.io/pelias-placeholder:${env.BUILD_ID}-${commit_id}"
+				sh "docker push peatusee.azurecr.io/pelias-libpostal:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Mesos restart container') {
