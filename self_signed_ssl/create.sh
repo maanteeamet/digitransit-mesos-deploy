@@ -31,7 +31,7 @@ openssl genrsa -out ${FQDN}.key 1024
 #openssl req -new -key ${FQDN}.key -out ${FQDN}.csr
 openssl req -new \
     -key ${FQDN}.key \
-    -subj "/C=EE/ST=Harjumaa/O=Maanteeamet/CN=${FQDN}" \
+    -subj "/CN=*.${FQDN}" \
     -reqexts SAN \
     -config <(cat /etc/ssl/openssl.cnf \
         <(printf "\n[SAN]\nsubjectAltName=${SAN}")) \
