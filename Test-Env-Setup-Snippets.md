@@ -154,3 +154,20 @@ https://lukasmestan.com/jenkins-pipeline-example-scripts/
 
 https://stackoverflow.com/questions/51923836/working-with-images-in-azure-container-registry-via-rest
 
+## Scaling DCOS cluster down
+
+1. Stop applications
+On DCOS master (you need to install dcos command before)
+
+```bash
+apps=$(dcos marathon app list |cut -f 1 -d " " | grep -v "^ID$")
+for i in $apps ; do echo "Stopping $i"; dcos marathon app stop $i ; done
+```
+
+2. Change cluster private nodes count
+3. restart applications
+
+```bash
+apps=$(dcos marathon app list |cut -f 1 -d " " | grep -v "^ID$")
+for i in $apps ; do echo "Stopping $i"; dcos marathon app start $i ; done
+```
