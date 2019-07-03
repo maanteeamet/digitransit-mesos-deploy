@@ -171,3 +171,11 @@ for i in $apps ; do echo "Stopping $i"; dcos marathon app stop $i ; done
 apps=$(dcos marathon app list |cut -f 1 -d " " | grep -v "^ID$")
 for i in $apps ; do echo "Stopping $i"; dcos marathon app start $i ; done
 ```
+
+
+## Docker images tagging in remote without pulling images
+
+TODO: 
+
+https://dille.name/blog/2018/09/20/how-to-tag-docker-images-without-pulling-them/
+
