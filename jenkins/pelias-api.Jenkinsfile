@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/pelias-api.git']]])
+              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/pelias-api.git']]])
             }
         }
         stage('Fix configuration for mesos') {
@@ -17,13 +17,21 @@ pipeline {
             }
         }
         stage('Docker Build image') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/pelias-api:latest .'
+			  sh "docker tag peatusee.azurecr.io/pelias-api:latest peatusee.azurecr.io/pelias-api:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Docker Push image') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               sh 'docker push peatusee.azurecr.io/pelias-api:latest'
+			  sh "docker push peatusee.azurecr.io/pelias-api:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Mesos restart container') {

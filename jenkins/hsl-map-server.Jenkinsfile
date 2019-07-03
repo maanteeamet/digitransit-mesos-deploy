@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/hsl-map-server.git']]])
+              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/hsl-map-server.git']]])
             }
         }
         stage('Fetch tiles') {
@@ -17,13 +17,21 @@ pipeline {
             }
         }
         stage('Docker Build image') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/hsl-map-server:latest .'
+			  sh "docker tag peatusee.azurecr.io/hsl-map-server:latest peatusee.azurecr.io/hsl-map-server:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Docker Push image') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               sh 'docker push peatusee.azurecr.io/hsl-map-server:latest'
+			  sh "docker push peatusee.azurecr.io/hsl-map-server:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Mesos restart container') {

@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/OpenTripPlanner.git']]])
+              checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/OpenTripPlanner.git']]])
             }
         }
         stage('Extract mvn cache') {
@@ -33,13 +33,21 @@ pipeline {
             }
         }
         stage('Docker Build image') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/opentripplanner:latest -f Dockerfile .'
+			  sh "docker tag peatusee.azurecr.io/opentripplanner:latest peatusee.azurecr.io/opentripplanner:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Docker Push image') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               sh 'docker push peatusee.azurecr.io/opentripplanner:latest'
+			  sh "docker push peatusee.azurecr.io/opentripplanner:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Mesos restart container') {

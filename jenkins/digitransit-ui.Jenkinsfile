@@ -8,17 +8,25 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/dolmit/digitransit-ui.git']]])
+              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/digitransit-ui.git']]])
             }
         }
         stage('Docker Build image') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/digitransit-ui:latest .'
+			  sh "docker tag peatusee.azurecr.io/digitransit-ui:latest peatusee.azurecr.io/digitransit-ui:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Docker Push image') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               sh 'docker push peatusee.azurecr.io/digitransit-ui:latest'
+			  sh "docker push peatusee.azurecr.io/digitransit-ui:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Mesos restart container') {

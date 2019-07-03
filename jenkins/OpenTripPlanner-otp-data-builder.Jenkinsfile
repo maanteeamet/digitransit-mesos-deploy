@@ -56,15 +56,23 @@ pipeline {
             }
         }
         stage('Create container opentripplanner-data-container-estonia') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               dir("data/build/estonia/") {
                 sh "docker build --tag=peatusee.azurecr.io/opentripplanner-data-container-estonia:latest -f Dockerfile.data-container ."
+				sh "docker tag peatusee.azurecr.io/opentripplanner-data-container-estonia:latest peatusee.azurecr.io/opentripplanner-data-container-estonia:${env.BUILD_ID}-${commit_id}"
               }
             }
         }
         stage('Push data opentripplanner-data-container-estonia') {
+			environment {
+				commit_id = sh(returnStdout: true, script: 'git rev-parse HEAD').trim().take(7)	
+			  }
             steps {
               sh 'docker push peatusee.azurecr.io/opentripplanner-data-container-estonia:latest'
+			  sh "docker push peatusee.azurecr.io/opentripplanner-data-container-estonia:${env.BUILD_ID}-${commit_id}"
             }
         }
         stage('Mesos restart container') {
