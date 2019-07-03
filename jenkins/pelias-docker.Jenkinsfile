@@ -46,7 +46,7 @@ pipeline {
                 sh 'cp Dockerignore.pip /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-pip:latest -f Dockerfile.pip .'
                 sh 'cp Dockerignore.placeholder /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-placeholder:latest -f Dockerfile.placeholder .'
                 sh 'cp Dockerignore.libpostal /pelias-data/.dockerignore && cd /pelias-data/ && docker build --tag=peatusee.azurecr.io/pelias-libpostal:latest -f Dockerfile.libpostal .'
-				sh "docker tag peatusee.azurecr.io/elastic:latest peatusee.azurecr.io/elastic:${env.BUILD_ID}-${commit_id}"
+				sh "docker tag peatusee.azurecr.io/pelias-elastic:latest peatusee.azurecr.io/pelias-elastic:${env.BUILD_ID}-${commit_id}"
 				sh "docker tag peatusee.azurecr.io/pelias-interpolation:latest peatusee.azurecr.io/pelias-interpolation:${env.BUILD_ID}-${commit_id}"
 				sh "docker tag peatusee.azurecr.io/pelias-pip:latest peatusee.azurecr.io/pelias-pip:${env.BUILD_ID}-${commit_id}"
 				sh "docker tag peatusee.azurecr.io/pelias-placeholder:latest peatusee.azurecr.io/pelias-placeholder:${env.BUILD_ID}-${commit_id}"
@@ -64,7 +64,7 @@ pipeline {
                 sh 'docker push peatusee.azurecr.io/pelias-pip:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-placeholder:latest'
                 sh 'docker push peatusee.azurecr.io/pelias-libpostal:latest'
-				sh "docker push peatusee.azurecr.io/elastic:${env.BUILD_ID}-${commit_id}"
+				sh "docker push peatusee.azurecr.io/pelias-elastic:${env.BUILD_ID}-${commit_id}"
 				sh "docker push peatusee.azurecr.io/pelias-interpolation:${env.BUILD_ID}-${commit_id}"
 				sh "docker push peatusee.azurecr.io/pelias-pip:${env.BUILD_ID}-${commit_id}"
 				sh "docker push peatusee.azurecr.io/pelias-placeholder:${env.BUILD_ID}-${commit_id}"
