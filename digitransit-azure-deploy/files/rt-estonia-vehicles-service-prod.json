@@ -22,7 +22,7 @@
       "image": "rt-estonia-vehicles-service:latest",
       "network": "BRIDGE",
       "privileged": false,
-      "forcePullImage": false,
+      "forcePullImage": true,
       "portMappings": [
         {
           "containerPort": 0,
