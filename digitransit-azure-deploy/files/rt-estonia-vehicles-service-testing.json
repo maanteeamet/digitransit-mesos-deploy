@@ -21,16 +21,20 @@
     "docker": {
       "image": "peatusee.azurecr.io/rt-estonia-vehicles-service:testing",
       "network": "BRIDGE",
-      "privileged": false,
-      "forcePullImage": true,
       "portMappings": [
         {
           "containerPort": 0,
           "hostPort": 10004,
+          "servicePort": 10004,
           "protocol": "tcp",
-          "name": "default"
+          "name": "default",
+          "labels": {
+            "VIP_0": "/rt-estonia-vehicles-service:10004"
+          }
         }
-      ]
+      ],
+      "privileged": false,
+      "forcePullImage": true
     }
   },
   "upgradeStrategy": {
@@ -44,8 +48,8 @@
   "killSelection": "YOUNGEST_FIRST",
   "requirePorts": true,
   "env": {
-    "OTPURL": "http://opentripplanner-estonia:8080/otp/routers/estonia/index/graphql",
-    "MQTTCLIENTURL": "mqtt://mosquitto-server:1883",
+    "OTPURL": "http://opentripplanner-estonia.marathon.l4lb.thisdcos.directory:8080/otp/routers/estonia/index/graphql",
+    "MQTTCLIENTURL": "mqtt://mosquitto-server.marathon.l4lb.thisdcos.directory:1883",
     "MQTTCLIENTUSER": "publisher",
     "MQTTCLIENTPASS": "sHalLnoTpaSS"
   }
