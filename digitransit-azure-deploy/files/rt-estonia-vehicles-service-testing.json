@@ -19,7 +19,7 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "rt-estonia-vehicles-service:latest",
+      "image": "peatusee.azurecr.io/rt-estonia-vehicles-service:testing",
       "network": "BRIDGE",
       "privileged": false,
       "forcePullImage": true,

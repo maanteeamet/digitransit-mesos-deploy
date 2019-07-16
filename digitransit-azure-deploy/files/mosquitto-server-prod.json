@@ -19,7 +19,7 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "peatusee.azurecr.io/mosquitto-server",
+      "image": "peatusee.azurecr.io/mosquitto-server:prod",
       "network": "BRIDGE",
       "portMappings": [
         {
