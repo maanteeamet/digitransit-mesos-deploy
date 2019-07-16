@@ -55,6 +55,12 @@ container:
 - name: "pelias-data-container"
   config: "pelias-data-container-{{ environment_type | lower }}"
 
+- name: "mosquitto-server"
+  config: "mosquitto-server-{{ environment_type | lower }}"
+  
+- name: "rt-estonia-vehicles-service"
+  config: "rt-estonia-vehicles-service-{{ environment_type | lower }}"
+
 
 dev_container:
 
