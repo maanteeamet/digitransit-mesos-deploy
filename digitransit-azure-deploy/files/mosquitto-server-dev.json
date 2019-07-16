@@ -1,6 +1,6 @@
 {
   "id": "/mosquitto-server",
-  "instances": 0,
+  "instances": 1,
   "cpus": 1,
   "mem": 2048,
   "disk": 0,
