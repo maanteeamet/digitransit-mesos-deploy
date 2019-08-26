@@ -25,7 +25,7 @@ pipeline {
         }
         stage('Docker remove old unused images') {
             steps {
-              sh 'docker system prune -y'
+              sh 'docker system prune -f'
             }
         }
         stage('Docker Build image otp-data-builder') {
