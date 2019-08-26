@@ -23,6 +23,11 @@ pipeline {
               sh 'npm install'
             }
         }
+        stage('Docker remove old unused images') {
+            steps {
+              sh 'docker system prune -y'
+            }
+        }
         stage('Docker Build image otp-data-builder') {
             steps {
               sh 'docker build --tag=peatusee.azurecr.io/otp-data-builder:latest .'
