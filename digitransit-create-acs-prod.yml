@@ -8,6 +8,6 @@
      #How many master nodes defaults to 3 for HA
      master_nodes: 3
      #How many azure vms needs as nodes for DCOS
-     agent_nodes: 6
-     ssh_keys: /home/martivo/.ssh/id_rsa.pub
+     agent_nodes: 4
+     ssh_keys: /home/jz/digitransit-mesos-deploy/id_rsa_prod.pub
      admin_user: azureuser

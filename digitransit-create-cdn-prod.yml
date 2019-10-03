@@ -5,5 +5,5 @@
     environment_type: PROD
     project_name: peatusee
     project: peatusee
-    origin_host: api.peatus.ee
-    origin_header: api.peatus.ee
+    origin_host: api.uus.peatus.ee
+    origin_header: api.uus.peatus.ee
