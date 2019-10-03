@@ -3,72 +3,72 @@
       "http://172.16.1.4/docker.tar.gz"
   ],
   "acceptedResourceRoles": [
-    "slave_public"
+      "slave_public"
   ],
   "backoffFactor": 1.15,
   "backoffSeconds": 1,
   "cmd": null,
   "constraints": [],
   "container": {
-    "docker": {
-      "forcePullImage": true,
-      "image": "hsldevcom/digitransit-proxy:prod",
-      "network": "BRIDGE",
-      "parameters": [],
-      "portMappings": [
-        {
-          "containerPort": 8080,
-          "hostPort": 80,
-          "labels": {
-            "VIP_0": "/digitransit-proxy:8080"
-          },
-          "protocol": "tcp",
-          "servicePort": 10002
-        }
-      ],
-      "privileged": false
-    },
-    "type": "DOCKER",
-    "volumes": []
+      "docker": {
+          "forcePullImage": true,
+          "image": "peatusee.azurecr.io/digitransit-proxy:prod",
+          "network": "BRIDGE",
+          "parameters": [],
+          "portMappings": [
+              {
+                  "containerPort": 8080,
+                  "hostPort": 80,
+                  "labels": {
+                      "VIP_0": "/digitransit-proxy:8080"
+                  },
+                  "protocol": "tcp",
+                  "servicePort": 10002
+              }
+          ],
+          "privileged": false
+      },
+      "type": "DOCKER",
+      "volumes": []
   },
   "cpus": 2,
   "dependencies": [],
   "disk": 0,
-  "env": {"OLD_LISSU_BASIC_AUTH":"\"Basic oldlissubasickey\"","JOJO_BASIC_AUTH":"\"Basic jojobasickey\"","LINKKI_BASIC_AUTH":"\"Basic linkkibasickey\"","VILKKU_BASIC_AUTH":"\"Basic vilkkubasickey\"","NEW_LISSU_BASIC_AUTH":"\"Basic newlissubasickey\"","LAPPEENRANTA_BASIC_AUTH":"\"Basic lappeenrantabasickey\""},
+  "env": {"OLD_LISSU_BASIC_AUTH":"\"Basic oldlissubasickey\"","JOJO_BASIC_AUTH":"\"Basic oldlissubasickey\"","LINKKI_BASIC_AUTH":"\"Basic oldlissubasickey\"","VILKKU_BASIC_AUTH":"\"Basic oldlissubasickey\"","NEW_LISSU_BASIC_AUTH":"\"Basic oldlissubasickey\"","LAPPEENRANTA_BASIC_AUTH":"\"Basic oldlissubasickey\""},
   "gpus": 0,
   "healthChecks": [
-    {
-      "gracePeriodSeconds": 300,
-      "ignoreHttp1xx": false,
-      "intervalSeconds": 60,
-      "maxConsecutiveFailures": 3,
-      "path": "/",
-      "portIndex": 0,
-      "protocol": "HTTP",
-      "timeoutSeconds": 20
-    }
+      {
+          "gracePeriodSeconds": 300,
+          "ignoreHttp1xx": false,
+          "intervalSeconds": 60,
+          "maxConsecutiveFailures": 3,
+          "path": "/",
+          "portIndex": 0,
+          "protocol": "HTTP",
+          "timeoutSeconds": 20
+      }
   ],
   "id": "/digitransit-proxy",
-  "instances": 10,
+  "instances": 1,
   "labels": {
-    "update": "auto"
+      "update": "auto"
   },
   "maxLaunchDelaySeconds": 3600,
   "mem": 1024,
   "portDefinitions": [
-    {
-      "labels": {},
-      "port": 10002,
-      "protocol": "tcp"
-    }
+      {
+          "labels": {},
+          "port": 10002,
+          "protocol": "tcp"
+      }
   ],
   "ports": [
-    10002
+      10002
   ],
   "readinessChecks": [],
   "taskKillGracePeriodSeconds": null,
   "upgradeStrategy": {
-    "maximumOverCapacity": 1,
-    "minimumHealthCapacity": 1
+      "maximumOverCapacity": 1,
+      "minimumHealthCapacity": 0
   }
 }

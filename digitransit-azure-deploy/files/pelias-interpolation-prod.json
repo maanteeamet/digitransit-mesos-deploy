@@ -15,27 +15,23 @@
   "container": {
       "docker": {
           "forcePullImage": true,
-          "image": "hsldevcom/navigator-server",
+          "image": "peatusee.azurecr.io/pelias-interpolation:prod",
           "network": "BRIDGE",
           "parameters": [
               {
-                  "key": "net",
-                  "value": "host"
-              },
-              {
                   "key": "name",
-                  "value": "navigator-server"
+                  "value": "pelias-interpolation"
               }
           ],
           "portMappings": [
               {
-                  "containerPort": 8080,
+                  "containerPort": 4300,
                   "hostPort": 0,
                   "labels": {
-                      "VIP_0": "/navigator-server:8080"
+                      "VIP_0": "/pelias-interpolation:4300"
                   },
                   "protocol": "tcp",
-                  "servicePort": 10013
+                  "servicePort": 10038
               }
           ],
           "privileged": false
@@ -43,11 +39,12 @@
       "type": "DOCKER",
       "volumes": []
   },
-  "cpus": 0.1,
+  "cpus": 0.5,
   "dependencies": [],
   "disk": 0,
   "env": {
-      "NODE_OPTS": "--max_old_space_size=400"
+      "HOST": "0.0.0.0",
+      "PORT": "4300"
   },
   "gpus": 0,
   "healthChecks": [
@@ -55,29 +52,29 @@
           "gracePeriodSeconds": 300,
           "ignoreHttp1xx": false,
           "intervalSeconds": 10,
-          "maxConsecutiveFailures": 5,
-          "path": "/",
+          "maxConsecutiveFailures": 3,
+          "path": "/search/geojson?lat=58.671392&lon=25.54665&number=1&street=viru",
           "portIndex": 0,
           "protocol": "HTTP",
           "timeoutSeconds": 10
       }
   ],
-  "id": "/navigator-server",
+  "id": "/pelias-interpolation",
   "instances": 1,
   "labels": {
       "update": "auto"
   },
   "maxLaunchDelaySeconds": 3600,
-  "mem": 128,
+  "mem": 4096,
   "portDefinitions": [
       {
           "labels": {},
-          "port": 10013,
+          "port": 10038,
           "protocol": "tcp"
       }
   ],
   "ports": [
-      10013
+      10038
   ],
   "readinessChecks": [],
   "taskKillGracePeriodSeconds": null,
