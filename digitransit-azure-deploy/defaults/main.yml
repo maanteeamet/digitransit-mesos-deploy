@@ -61,6 +61,9 @@ container:
 - name: "rt-estonia-vehicles-service"
   config: "rt-estonia-vehicles-service-{{ environment_type | lower }}"
 
+- name: "gtfs-rt-server"
+  config: "gtfs-rt-server-{{ environment_type | lower }}"
+
 
 dev_container:
 

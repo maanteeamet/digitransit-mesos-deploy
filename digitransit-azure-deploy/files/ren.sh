@@ -21,7 +21,8 @@ cp pelias-libpostal-testing.json                    pelias-libpostal-prod.json
 cp pelias-pip-testing.json                          pelias-pip-prod.json                         
 cp pelias-placeholder-testing.json                  pelias-placeholder-prod.json                 
 cp raildigitraffic2gtfsrt-testing.json              raildigitraffic2gtfsrt-prod.json             
-cp rt-estonia-vehicles-service-testing.json         rt-estonia-vehicles-service-prod.json        
+cp rt-estonia-vehicles-service-testing.json         rt-estonia-vehicles-service-prod.json
+cp gtfs-rt-server-testing.json                      gtfs-rt-server-prod.json
 
 
 
