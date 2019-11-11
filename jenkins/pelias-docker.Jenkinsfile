@@ -11,11 +11,6 @@ pipeline {
               checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/herrbpl/pelias-docker.git']]])
             }
         }
-        stage('Docker remove old unused images') {
-                    steps {
-                      sh 'docker system prune -f'
-                    }
-        }
         stage('Build map data') {
             steps {
               dir("projects/estonia") {
