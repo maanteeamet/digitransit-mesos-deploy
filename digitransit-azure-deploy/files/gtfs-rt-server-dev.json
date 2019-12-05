@@ -29,7 +29,7 @@
           "protocol": "tcp",
           "name": "default",
           "labels": {
-            "VIP_0": "/gtfs-rt-server:10004"
+            "VIP_0": "/gtfs-rt-server:18080"
           }
         }
       ],
