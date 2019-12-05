@@ -24,8 +24,8 @@
       "portMappings": [
         {
           "containerPort": 0,
-          "hostPort": 10004,
-          "servicePort": 10004,
+          "hostPort": 18080,
+          "servicePort": 18080,
           "protocol": "tcp",
           "name": "default",
           "labels": {
