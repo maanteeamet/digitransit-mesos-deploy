@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Git checkout') {
             steps {
-              checkout([$class: 'GitSCM', branches: [[name: '*/estonia']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/OpenTripPlanner.git']]])
+              checkout([$class: 'GitSCM', branches: [[name: '*/master']], userRemoteConfigs: [[url: 'https://github.com/maanteeamet/OpenTripPlanner.git']]])
             }
         }
         stage('Extract mvn cache') {
